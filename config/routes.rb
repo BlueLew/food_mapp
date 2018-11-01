@@ -13,13 +13,6 @@ Rails.application.routes.draw do
   get 'places/create'
   root 'places#index'
   namespace :admin do
-    get 'pages/index'
-    get 'pages/edit'
-    get 'pages/update'
-    get 'pages/delete'
-    get 'pages/show'
-  end
-  namespace :admin do
     get 'users/index' => 'users#index'
     get 'users/edit'
     get 'users/update'
