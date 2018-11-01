@@ -8,8 +8,8 @@ class CreatePlaces < ActiveRecord::Migration[5.2]
       t.string :opening_hours
       t.string :website
       t.string :price_level
-      t.float :latitude, null: false
-      t.float :longitude, null: false
+      t.float :latitude
+      t.float :longitude
       t.string :google_place_id
       t.string :google_id
 
