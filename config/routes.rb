@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get 'places/update'
   get 'places/edit'
   get 'places/create'
-  root 'places#search'
+  root 'places#index'
   namespace :admin do
     get 'pages/index'
     get 'pages/edit'

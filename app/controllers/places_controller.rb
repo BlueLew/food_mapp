@@ -1,8 +1,8 @@
 class PlacesController < ApplicationController
   before_action :authenticate_user!
-  
+
   def index
-    @places = Places.all
+    @places = Place.all
   end
 
   def show
