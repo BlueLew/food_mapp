@@ -1,2 +1,10 @@
 <h1>Users#show</h1>
 <p>Find me in app/views/users/show.html.erb</p>
+
+<div>
+  <h1>User Name: <%= current_user.name %></h1>
+  <% if current_user.avatar.attached? %>
+    <h4><%= image_tag current_user.avatar.variant(resize: "150 x 200")%></h4>
+    <%= link_to "Download #{current_user.name}'s Photo", rails_blob_path(current_user.avatar, disposition: "attachment") %>
+  <% end %>
+</div>
