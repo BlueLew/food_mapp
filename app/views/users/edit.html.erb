@@ -1,2 +1,13 @@
 <h1>Users#edit</h1>
 <p>Find me in app/views/users/edit.html.erb</p>
+<h4>
+  <%= form_for current_user do |f| %>
+  Name: <%= f.text_field :name %><br><br>
+  Places I lived at the longest:
+  <%= f.text_field :residence %><br>
+  <%= f.text_field :residence %><br>
+  <%= f.text_field :residence %><br>
+  Avatar: <%= f.file_field :avatar %><br><br>
+  <%= f.submit %>
+  <% end %>
+</h4>
