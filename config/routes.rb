@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'locations/index'
+  get 'locations/show'
+  get 'location/index'
+  get 'location/show'
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get 'users/show'
