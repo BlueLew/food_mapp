@@ -3,20 +3,23 @@
   <h2 class="c-title"><%= @place.address %></h2>
   <h2 class="c-title"><%= @place.phone_number %></h2>
   <h2 class="c-title">Type of Restaurant: <%= @place.category %></h2>
-  <h2 class="c-title c-title--tiny"># of Likes = <%= @place.likes.count %></h2>
-  <h3 class="c-title c-title--tiny">Likes by Locations:</h3>
-  <h3 class="c-title c-title--tiny">Cities: </h3>
-  <h3 class="c-title c-title--tiny"><%# @likes.map(&:city) %>
-  
-  <h3 class="c-title c-title--tiny"># of cities = <%= @place.cities.uniq.reject(&:blank?).count %></h3>
-  <h3 class="c-title c-title--tiny">List of cities:</h3>
-    <%= Place.left_joins(:likes).group(:id).order('COUNT(likes.id) DESC').limit(10).to_sentence %>
-  <h3 class="c-title c-title--tiny"><%= @place.cities.uniq.reject(&:blank?).to_sentence %></h3>
-  <h3 class="c-title c-title--tiny">States:</h3>
-  <h3 class="c-title c-title--tiny"># of states = <%= @place.states.uniq.reject(&:blank?).count %></h3>
-  <h3 class="c-title c-title--tiny">List of states: <%= @place.states.uniq.reject(&:blank?).to_sentence %></h3>
-  <h3 class="c-title c-title--tiny">Countries:</h3>
-  <h3 class="c-title c-title--tiny"># of countries = <%= @place.countries.uniq.reject(&:blank?).count %></h3>
-  <h3 class="c-title c-title--tiny">List of countries: <%= @place.countries.uniq.reject(&:blank?).to_sentence %></h3>
-  <%# link_to "Purchase", new_book_sale_path(@book), class: "c-button c-button--focal" %>
+  <h2 class="c-title c-title--tiny"># of Likes Received by Users = <%= @place.likes.count %></h2>
+  <h3 class="c-title c-title--tiny">Likes by Cities</h3>
+  <ol>
+    <% @likes_by_cities.each do |city, locations| %>
+      <li><%= city %></li>
+    <% end %>
+  </ol>
+  <h3 class="c-title c-title--tiny">Likes by States</h3>
+  <ol>
+    <% @likes_by_states.each do |state, locations| %>
+      <li><%= state %></li>
+    <% end %>
+  </ol>
+  <h3 class="c-title c-title--tiny">Likes by Countries</h3>
+  <ol>
+    <% @likes_by_countries.each do |country, locations| %>
+      <li><%= country %></li>
+    <% end %>
+  </ol>
 </div>
