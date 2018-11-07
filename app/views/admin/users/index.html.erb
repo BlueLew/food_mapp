@@ -1,0 +1,15 @@
+<div class="c-section">
+  <% @users.each do |user| %>
+    <div class="c-card u-margin-bottom-small">
+      <div class="c-section">
+        <h2><%# image_tag user.avatar.variant(resize: "100x200") %></h2>
+        <h2 class="c-title"><%= user.name %></h2>
+        <h3 class="c-title c-title--tiny"><%= user.email %></h3>
+        <h4 class="c-title c-title--tiny"><%# user.phone_number %></h4>
+        <h4 class="c-title c-title--tiny"># of Likes = <%= user.likes.count %></h4>
+        <h4 class="c-title c-title--tiny"> <%# place.locations %></h4>
+        <button><%= link_to "More Info", admin_users_edit_path(user), class: "c-button c-button--small c-button--focal"%></button>
+      </div>
+    </div>
+  <% end %>
+</div>
