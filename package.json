@@ -1,5 +1,7 @@
 {
   "name": "food_mapp",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "google-map-react": "^1.0.9"
+  }
 }

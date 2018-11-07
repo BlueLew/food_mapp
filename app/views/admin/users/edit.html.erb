@@ -1,0 +1,12 @@
+<div class="c-section">
+  <h1 class="c-title c-title--large"><%= @user.name %></h1>
+  <h2 class="c-title"><%= @user.email %></h2>
+  <h2 class="c-title c-title--tiny"># of Likes = <%= @user.likes.count %></h2>
+  <h3 class="c-title c-title--tiny">Locations:</h3>
+  <h3 class="c-title c-title--tiny">Cities: </h3>
+  <h3 class="c-title c-title--tiny">List of cities: <%= @user.cities.uniq.reject(&:blank?).to_sentence %></h3>
+  <h3 class="c-title c-title--tiny">States:</h3>
+  <h3 class="c-title c-title--tiny">List of states: <%= @user.states.uniq.reject(&:blank?).to_sentence %></h3>
+  <h3 class="c-title c-title--tiny">Countries:</h3>
+  <h3 class="c-title c-title--tiny">List of countries: <%= @user.countries.uniq.reject(&:blank?).to_sentence %></h3>
+</div>

@@ -1,12 +1,22 @@
 class PlacesController < ApplicationController
-  before_action :authenticate_user!
 
   def index
-    @places = Place.all
+    if params[:search].present?
+      @places = Place.perform_search(params[:search])
+    else
+      @places = Place.all
+    end
+    @place = Place.new
   end
 
   def show
     @place = Place.find(params[:id])
+    @likes = @place.likes
+    @users = @place.users
+    @locations = @users.map(&:locations).flatten
+    @cities = @locations.map(&:city)
+    @states = @locations.map(&:state)
+    @countries = @locations.map(&:country)
   end
 
   def update
@@ -15,8 +25,18 @@ class PlacesController < ApplicationController
   def edit
   end
 
+  def new
+    @place = Place.new
+  end
+
   def create
-    Place.create(name: params[:place][:name])
-    redirect_to places_index_path
+    #before_action :authenticate_user!
+    Place.find_or_create_by(
+      name: params[:place][:name],
+      address: params[:place][:address],
+      phone_number: params[:place][:phone_number],
+      category: params[:place][:category]
+      )
+    redirect_to places_path
   end
 end

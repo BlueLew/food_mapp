@@ -1,13 +1,52 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
 <h4>
-  <%= form_for current_user do |f| %>
-  Name: <%= f.text_field :name %><br><br>
-  Places I lived at the longest:
-  <%= f.text_field :residence %><br>
-  <%= f.text_field :residence %><br>
-  <%= f.text_field :residence %><br>
-  Avatar: <%= f.file_field :avatar %><br><br>
-  <%= f.submit %>
-  <% end %>
+  <div class="c-section">
+  <h1 class="c-title c-title--large">Edit Your Profile</h1>
+    <div class="c-section">
+      <h4 class="c-title">
+      <%= simple_form_for @user do |f| %>
+        <%= f.input :name, label: "Your name:" %><br><br>
+        <%= f.file_field :avatar, label: "Upload your avatar" %><br><br>
+        <%= f.button :submit, "Update your profile" %><br><br>
+      <% end %>
+      Locations where you resided?<br>
+      <%# simple_form_for @locations do |f| %>
+        <%# f.input :city %><br>
+        <%# f.input :state %><br>
+        <%# f.input :country %><br>
+        <%# f.button :submit, "Update your profile" %>
+      <%# end %>
+
+
+        <%# form_for current_user do |f| %>
+          Name: <%# f.text_field :name %><br><br>
+          Avatar: <%# f.file_field :avatar %><br><br>
+          <%# f.submit %>
+        <%# end %>
+        <%# form_for current_user.locations do |f| %>
+          Cities where you resided?<br>
+          <%# f.text_field :city %><br>
+          <%# f.text_field :city %><br>
+          <%# f.text_field :city %><br><br>
+          States where you resided?<br>
+          <%# f.text_field :state %><br>
+          <%# f.text_field :state %><br>
+          <%# f.text_field :state %><br><br>
+          Countries where you resided?<br>
+          <%# f.text_field :country %><br>
+          <%# f.text_field :country %><br>
+          <%# f.text_field :country %><br><br>
+          <%# f.submit %>
+        <%# end %>
+      </h4>
+    </div>
+</div>
+
+  <%# simple_form_for current_user do |f| %>
+    <%# f.input :name, label: "Name:" %><br>
+    <%# f.input[type#file] :avatar, label: "Upload your avatar" %><br>
+    <%# f.input :city, label: "City where you resided" %><br>
+    <%# f.input :state, label: "Country where you resided" %><br>
+    <%# f.input :country, label: "Country where you resided" %><br>
+    <%# f.button :submit, label: "Enter" %>
+  <%# end %>
 </h4>
