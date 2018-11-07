@@ -6,12 +6,16 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = current_user
+    @user = User.find(params[:id])
+    @locations = @user.locations
   end
 
   def update
     current_user.name = params[:user][:name]
     current_user.avatar.attach(params[:user][:avatar])
+    #current_user.locations = params[:locations][:city], 
+                              #[:locations][:state],
+                              #[:locations][:country]
 
     if current_user.save
       redirect_to user_path

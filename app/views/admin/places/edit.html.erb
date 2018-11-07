@@ -6,14 +6,10 @@
   <h2 class="c-title c-title--tiny"># of Likes = <%= @place.likes.count %></h2>
   <h3 class="c-title c-title--tiny">Likes by Locations:</h3>
   <h3 class="c-title c-title--tiny">Cities: </h3>
-  <h3 class="c-title c-title--tiny"><%# @likes.map(&:city) %>
-  
   <h3 class="c-title c-title--tiny"># of cities = <%= @place.cities.uniq.reject(&:blank?).count %></h3>
-  <h3 class="c-title c-title--tiny">List of cities:</h3>
-    <%= Place.left_joins(:likes).group(:id).order('COUNT(likes.id) DESC').limit(10).to_sentence %>
-  <h3 class="c-title c-title--tiny"><%= @place.cities.uniq.reject(&:blank?).to_sentence %></h3>
+  <h3 class="c-title c-title--tiny">List of cities: <%= @place.cities.uniq.reject(&:blank?).to_sentence %></h3>
   <h3 class="c-title c-title--tiny">States:</h3>
-  <h3 class="c-title c-title--tiny"># of states = <%= @place.states.uniq.reject(&:blank?).count %></h3>
+  <h3 class="c-title c-title--tiny"># of states = <%= @place.states.compact.uniq.reject(&:blank?).count %></h3>
   <h3 class="c-title c-title--tiny">List of states: <%= @place.states.uniq.reject(&:blank?).to_sentence %></h3>
   <h3 class="c-title c-title--tiny">Countries:</h3>
   <h3 class="c-title c-title--tiny"># of countries = <%= @place.countries.uniq.reject(&:blank?).count %></h3>
