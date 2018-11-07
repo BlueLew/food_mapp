@@ -20,6 +20,7 @@ class Place < ApplicationRecord
   
   has_many :likes
   has_many :users, through: :likes
+  has_many :locations, through: :users
 
   has_one_attached :photo
 

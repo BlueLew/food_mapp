@@ -4,4 +4,11 @@
     <h4><%= image_tag current_user.avatar.variant(resize: "150 x 200")%></h4>
     <%= link_to "Download #{current_user.name}'s Photo", rails_blob_path(current_user.avatar, disposition: "attachment") %>
   <% end %>
+  <h2> Email Address: <%= current_user.email %></h2>
+  <h2> User's Locations: </h2>
+  <% @locations.each do |location| %>
+    <ul>
+      <li><%= location %></li>
+    </ul>
+  <% end %>
 </div>

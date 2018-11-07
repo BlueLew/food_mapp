@@ -12,11 +12,13 @@ class PlacesController < ApplicationController
   def show
     @place = Place.find(params[:id])
     @likes = @place.likes
-    @users = @place.users
-    @locations = @users.map(&:locations).flatten
-    @cities = @locations.map(&:city)
-    @states = @locations.map(&:state)
-    @countries = @locations.map(&:country)
+    #@locations = @users.map(&:locations).flatten
+    @likes_by_cities = @place.locations.group_by(&:city).map { 
+      |city, location| "#{city} = #{location.count} likes"}
+    @likes_by_states = @place.locations.group_by(&:state).map { 
+      |state, location| "#{state} = #{location.count} likes"}
+    @likes_by_countries = @place.locations.group_by(&:country).map { 
+      |country, location| "#{country} = #{location.count} likes"}
   end
 
   def update

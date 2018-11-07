@@ -3,10 +3,14 @@ class UsersController < ApplicationController
   
   def show
     @user = current_user
+    @likes = @user.likes
+    @locations = @user.locations
+    @likes_by_places = @user.places.group_by(&:name).map #{ 
+      #|key, value| "#{key} - #{value.count} likes"}
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = current_user
     @locations = @user.locations
   end
 

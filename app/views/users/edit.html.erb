@@ -5,16 +5,16 @@
       <h4 class="c-title">
       <%= simple_form_for @user do |f| %>
         <%= f.input :name, label: "Your name:" %><br><br>
-        <%= f.file_field :avatar, label: "Upload your avatar" %><br><br>
+        Upload you profile picture. <%= f.file_field :avatar %><br><br>
         <%= f.button :submit, "Update your profile" %><br><br>
       <% end %>
       Locations where you resided?<br>
-      <%# simple_form_for @locations do |f| %>
-        <%# f.input :city %><br>
-        <%# f.input :state %><br>
-        <%# f.input :country %><br>
-        <%# f.button :submit, "Update your profile" %>
-      <%# end %>
+      <%= simple_form_for @locations do |f| %>
+        <%= f.input :city %><br>
+        <%= f.input :state %><br>
+        <%= f.input :country %><br>
+        <%= f.button :submit, "Update your profile" %>
+      <% end %>
 
 
         <%# form_for current_user do |f| %>
