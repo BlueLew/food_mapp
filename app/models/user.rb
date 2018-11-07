@@ -7,5 +7,8 @@ class User < ApplicationRecord
   has_many :likes
   has_many :places, through: :likes
 
+  has_many :user_locations
+  has_many :locations, through: :user_locations
+
   has_one_attached :avatar
 end

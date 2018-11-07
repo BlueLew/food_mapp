@@ -1,0 +1,14 @@
+<div class="c-section">
+  <h1 class="c-title">Add a Restaurant</h1>
+</div>
+<div class="c-section">
+  <h4 class="c-title">
+    <%= simple_form_for @place do |f| %>
+    <%= f.input :name, label: "Name of Restaurant:" %><br>
+    <%= f.input :address, label: "Restaurant's Address:" %><br>
+    <%= f.input :phone_number, label: "Phone Number:", placeholder: "(555) 555-5555" %><br>
+    <%= f.input :category, label: "Category:", placeholder: "American, Casual, etc." %><br>
+    <%= f.button :submit, label: "Add Restaurant" %>
+    <% end %>
+  </h4>
+</div>

@@ -1,2 +1,26 @@
-<h1>Places#index</h1>
-<p>Find me in app/views/places/index.html.erb</p>
+<div class="c-section">
+  <h2 class="c-title c-title--large">Restaurants</h2>
+</div>
+<div>
+  <%= form_tag(places_path, method: "get") do %>
+    <%= text_field_tag :search, nil, placeholder: "Search by name or category...", class: "form-control" %>
+    <%= submit_tag "", style: "display: none;"%>
+  <% end %><br>
+  <button><%= link_to "Add a Restaurant to Food Mapp!", new_place_path, class: "c-button c-button--small c-button--focal"%></button>
+</div>
+<div class="c-section">
+  <% @places.each do |place| %>
+    <div class="c-card u-margin-bottom-small">
+      <div class="c-section">
+        <h2 class="c-title"><%= place.name %></h2>
+        <h3 class="c-title c-title--tiny"><%= place.address %></h3>
+        <h4 class="c-title c-title--tiny"><%= place.phone_number %></h4>
+        <h4 class="c-title c-title--tiny">Type of Restaurant: <%= place.category %></h4>
+        <h4 class="c-title c-title--tiny"># of Likes = <%= place.likes.count %></h4>
+        <h4 class="c-title c-title--tiny"> <%# place.locations %></h4>
+        <%# image_tag place.image.variant(resize: "200x300") %>
+        <button><%= link_to "More Info", place_path(place), class: "c-button c-button--small c-button--focal"%></button>
+      </div>
+    </div>
+  <% end %>
+</div>

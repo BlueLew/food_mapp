@@ -1,0 +1,17 @@
+<div class="c-section">
+  <% @places.each do |place| %>
+    <div class="c-card u-margin-bottom-small">
+      <div class="c-section">
+        <h2 class="c-title"><%= place.name %></h2>
+        <h3 class="c-title c-title--tiny"><%= place.address %></h3>
+        <h4 class="c-title c-title--tiny"><%= place.phone_number %></h4>
+        <h4 class="c-title c-title--tiny">Type of Restaurant: <%= place.category %></h4>
+        <h4 class="c-title c-title--tiny"># of Likes = <%= place.likes.count %></h4>
+        <h4 class="c-title c-title--tiny"> <%# place.locations %></h4>
+        <%# image_tag place.image.variant(resize: "200x300") %>
+        <button><%= link_to "More Info", admin_places_edit_path(place), class: "c-button c-button--small c-button--focal"%></button>
+        <button><%= link_to "Delete", admin_places_edit_path, method: :delete, class: "c-button c-button--warning"%></button>
+      </div>
+    </div>
+  <% end %>
+</div>

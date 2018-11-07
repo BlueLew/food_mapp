@@ -1,0 +1,18 @@
+<div class="c-section">
+  <h1 class="c-title c-title--large"><%= @place.name %></h1>
+  <h2 class="c-title"><%= @place.address %></h2>
+  <h2 class="c-title"><%= @place.phone_number %></h2>
+  <h2 class="c-title">Type of Restaurant: <%= @place.category %></h2>
+  <h2 class="c-title c-title--tiny"># of Likes = <%= @place.likes.count %></h2>
+  <h3 class="c-title c-title--tiny">Likes by Locations:</h3>
+  <h3 class="c-title c-title--tiny">Cities: </h3>
+  <h3 class="c-title c-title--tiny"># of cities = <%= @place.cities.uniq.reject(&:blank?).count %></h3>
+  <h3 class="c-title c-title--tiny">List of cities: <%= @place.cities.uniq.reject(&:blank?).to_sentence %></h3>
+  <h3 class="c-title c-title--tiny">States:</h3>
+  <h3 class="c-title c-title--tiny"># of states = <%= @place.states.compact.uniq.reject(&:blank?).count %></h3>
+  <h3 class="c-title c-title--tiny">List of states: <%= @place.states.uniq.reject(&:blank?).to_sentence %></h3>
+  <h3 class="c-title c-title--tiny">Countries:</h3>
+  <h3 class="c-title c-title--tiny"># of countries = <%= @place.countries.uniq.reject(&:blank?).count %></h3>
+  <h3 class="c-title c-title--tiny">List of countries: <%= @place.countries.uniq.reject(&:blank?).to_sentence %></h3>
+  <%# link_to "Purchase", new_book_sale_path(@book), class: "c-button c-button--focal" %>
+</div>

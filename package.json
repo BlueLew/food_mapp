@@ -1,5 +1,11 @@
 {
   "name": "food_mapp",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "@rails/webpacker": "3.5",
+    "google-map-react": "^1.0.9"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "2.11.2"
+  }
 }
