@@ -8,6 +8,9 @@
   <% end %><br>
   <button><%= link_to "Add a Restaurant to Food Mapp!", new_place_path, class: "c-button c-button--small c-button--focal"%></button>
 </div>
+<div class="map_container">
+  <div id="map"></div>
+</div>
 <div class="c-section">
   <% @places.each do |place| %>
     <div class="c-card u-margin-bottom-small">
@@ -24,3 +27,24 @@
     </div>
   <% end %>
 </div>
+<script>
+  var places = <%== @places.map { |place| {lat: place.latitude, lng: place.longitude }}.to_json %>;
+  
+  var map;
+
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 34.8526, lng: -82.3940},
+      zoom: 10
+    });
+
+    places.forEach(function(place) {
+      var position = new google.maps.LatLng(place.lat, place.lng);
+      var marker = new google.maps.Marker({
+        position: position,
+        map: map
+      });
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUbWRtQWZ3pC8radEZuKVryQ8A2dlayQw&callback=initMap" async defer></script>
