@@ -1,4 +1,5 @@
 <div class="c-section">
+  <div id="map"></div>
   <h1 class="c-title c-title--large"><%= @place.name %></h1>
   <h2 class="c-title"><%= @place.address %></h2>
   <h2 class="c-title"><%= @place.phone_number %></h2>
@@ -6,20 +7,20 @@
   <h2 class="c-title c-title--tiny"># of Likes Received by Users = <%= @place.likes.count %></h2>
   <h3 class="c-title c-title--tiny">Likes by Cities</h3>
   <ol>
-    <% @likes_by_cities.each do |city, locations| %>
-      <li><%= city %></li>
+    <% @likes_by_cities.each do |group| %>
+      <li><%= "#{group[:name]} = #{group[:likes]} Likes" %></li>
     <% end %>
   </ol>
   <h3 class="c-title c-title--tiny">Likes by States</h3>
   <ol>
-    <% @likes_by_states.each do |state, locations| %>
-      <li><%= state %></li>
+    <% @likes_by_states.each do |group| %>
+      <li><%= "#{group[:name]} = #{group[:likes]} Likes" %></li>
     <% end %>
   </ol>
   <h3 class="c-title c-title--tiny">Likes by Countries</h3>
   <ol>
-    <% @likes_by_countries.each do |country, locations| %>
-      <li><%= country %></li>
+    <% @likes_by_countries.each do |group| %>
+      <li><%= "#{group[:name]} = #{group[:likes]} Likes" %></li>
     <% end %>
   </ol>
 </div>

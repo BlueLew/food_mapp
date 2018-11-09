@@ -12,13 +12,12 @@ class PlacesController < ApplicationController
   def show
     @place = Place.find(params[:id])
     @likes = @place.likes
-    #@locations = @users.map(&:locations).flatten
-    @likes_by_cities = @place.locations.group_by(&:city).map { 
-      |city, location| "#{city} = #{location.count} likes"}
-    @likes_by_states = @place.locations.group_by(&:state).map { 
-      |state, location| "#{state} = #{location.count} likes"}
-    @likes_by_countries = @place.locations.group_by(&:country).map { 
-      |country, location| "#{country} = #{location.count} likes"}
+    @users = User.all
+    @locations = @users.map(&:locations).flatten
+    #@frequency = location_frequency(@locations)
+    @likes_by_cities = likes_by(:city)
+    @likes_by_states = likes_by(:state)
+    @likes_by_countries = likes_by(:country)
   end
 
   def update
@@ -40,5 +39,47 @@ class PlacesController < ApplicationController
       category: params[:place][:category]
       )
     redirect_to places_path
+  end
+
+  def location_frequency(locations)
+    {}.tap do |locations_by_frequency|
+      locations.each do |location|
+        location_city = "#{location.city}"
+        location_state = "#{location.state}"
+        location_country = "#{location.country}" 
+        
+         location_name = "#{location.city}, #{location.state} #{location.country}"
+          if locations_by_frequency[location_city]
+           locations_by_frequency[location_city] += 1
+          else
+           locations_by_frequency[location_city]= 1
+          end
+          if locations_by_frequency[location_state]
+           locations_by_frequency[location_state] += 1
+          else
+           locations_by_frequency[location_state]= 1
+          end
+          if locations_by_frequency[location_country]
+           locations_by_frequency[location_country] += 1
+          else
+           locations_by_frequency[location_country]= 1
+          end
+      end
+    end
+  end
+
+private
+
+  def likes_by(geography)
+    @place.locations.group_by(&geography).map { |group, locations|
+      unless group.blank?
+        {
+          name: group,
+          likes: locations.count 
+        } 
+      end
+    }.compact.sort_by { |group| 
+      group[:likes]
+    }.reverse
   end
 end
