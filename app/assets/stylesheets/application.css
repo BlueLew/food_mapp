@@ -13,3 +13,21 @@
  *= require_tree .
  *= require_self
  */
+
+#map {
+  height: 500px;
+}
+
+#show_map {
+  height: 500px;
+}
+
+#likes_map {
+  height: 500px;
+}
+
+.map_container {
+  width: 50%;
+  height: 50%;
+  z-index: 1000;
+}
