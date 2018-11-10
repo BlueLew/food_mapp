@@ -1,4 +1,5 @@
 class PlacesController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :edit, :update]
 
   def index
     if params[:search].present?
@@ -31,7 +32,6 @@ class PlacesController < ApplicationController
   end
 
   def create
-    #before_action :authenticate_user!
     Place.find_or_create_by(
       name: params[:place][:name],
       address: params[:place][:address],
