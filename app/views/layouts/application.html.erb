@@ -22,7 +22,7 @@
             <%= image_tag current_user.avatar.variant(resize: "25 x 40")%>
             Welcome, <%= current_user.name %>!
             <% if current_user %>
-              <%= link_to "Edit Profile", edit_user_path(current_user), class: "c-link" %>
+              <%= link_to "View Profile", user_path(current_user), class: "c-link" %>
             <% end %>
             <%= link_to("Logout", destroy_user_session_path, method: :delete, class: "c-link") %>
           </li>

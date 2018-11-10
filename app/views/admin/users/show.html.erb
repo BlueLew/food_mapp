@@ -1,0 +1,23 @@
+<div class="c-card u-margin-bottom-small">
+  <div class="c-section">
+    <% if @user.avatar.attached? %>
+      <h4><%= image_tag @user.avatar.variant(resize: "150 x 200")%></h4>
+    <% end %>
+    <h2 class="c-title"><%= @user.name %></h2>
+    <h3 class="c-title c-title--tiny"><%= @user.email %></h3>
+    <h4 class="c-title c-title--tiny">Locations:</h4>
+      <% @locations.each do |location| %>
+      <ul>
+        <li><%= location.city%>, <%= location.state %> <%location.country %></li>
+      </ul>
+      <% end %>
+    <h4 class="c-title c-title--tiny"># of Likes = <%= @user.likes.count %></h4>
+    <h4 class="c-title c-title--tiny">Places Liked:</h4>
+      <% @places.each do |place| %>
+      <ul>
+        <li><%= place.name %></li>
+      </ul>
+      <% end %>
+    <button><%= link_to 'Delete', admin_users_path, method: :destroy, data: { confirm: 'Are you sure?' }, class: "c-button c-button--warning"%></button>
+  </div>
+</div>

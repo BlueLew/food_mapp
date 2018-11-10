@@ -1,4 +1,8 @@
 <div class="c-section">
+  <%= form_tag(places_path, method: "get") do %>
+    <%= text_field_tag :search, nil, placeholder: "Search by name or category...", class: "form-control" %>
+    <%= submit_tag "", style: "display: none;"%>
+  <% end %><br>
   <% @places.each do |place| %>
     <div class="c-card u-margin-bottom-small">
       <div class="c-section">
@@ -9,8 +13,8 @@
         <h4 class="c-title c-title--tiny"># of Likes = <%= place.likes.count %></h4>
         <h4 class="c-title c-title--tiny"> <%# place.locations %></h4>
         <%# image_tag place.image.variant(resize: "200x300") %>
-        <button><%= link_to "More Info", admin_places_edit_path(place), class: "c-button c-button--small c-button--focal"%></button>
-        <button><%= link_to "Delete", admin_places_edit_path, method: :delete, class: "c-button c-button--warning"%></button>
+        <button><%= link_to "More Info", admin_place_path(place), class: "c-button c-button--small c-button--focal"%></button>
+        <button><%= link_to 'Delete', admin_places_path, method: :destroy, data: { confirm: 'Are you sure?' }, class: "c-button c-button--warning"%></button>
       </div>
     </div>
   <% end %>

@@ -11,15 +11,17 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
+    @likes = @user.likes
     @locations = @user.locations
   end
 
   def update
-    current_user.name = params[:user][:name]
-    current_user.avatar.attach(params[:user][:avatar])
-    #current_user.locations = params[:locations][:city], 
-                              #[:locations][:state],
-                              #[:locations][:country]
+    @user = current_user
+    @locations = @user.locations
+    @user.name = params[:user][:name]
+    @user.avatar.attach(params[:user][:avatar])
+    @locations = params[:locations][:city], 
+      [:locations][:state], [:locations][:country]
 
     if current_user.save
       redirect_to user_path
@@ -30,5 +32,15 @@ class UsersController < ApplicationController
 
   def delete
     @user = current_user
+    @user.destroy
+    flash[:success] = "User deleted"
+    redirect_to places_path
+  end
+
+  def destory
+    @user = current_user
+    @user.destroy
+    flash[:success] = "User deleted"
+    redirect_to places_path
   end
 end
