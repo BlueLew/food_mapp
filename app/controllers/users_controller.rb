@@ -5,8 +5,7 @@ class UsersController < ApplicationController
     @user = current_user
     @likes = @user.likes
     @locations = @user.locations
-    @likes_by_places = @user.places.group_by(&:name).map #{ 
-      #|key, value| "#{key} - #{value.count} likes"}
+    @places = @user.places
   end
 
   def edit

@@ -4,9 +4,11 @@ Rails.application.routes.draw do
 
   resources :locations
   
-  resources :places
+  resources :places do
+    resources :likes
+  end
   root 'places#index'
-  
+
   namespace :admin do
     resources :places, except: :create
     resources :users, except: :create
