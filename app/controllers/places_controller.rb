@@ -41,32 +41,32 @@ class PlacesController < ApplicationController
     redirect_to places_path
   end
 
-  def location_frequency(locations)
-    {}.tap do |locations_by_frequency|
-      locations.each do |location|
-        location_city = "#{location.city}"
-        location_state = "#{location.state}"
-        location_country = "#{location.country}" 
+  # def location_frequency(locations)
+  #   {}.tap do |locations_by_frequency|
+  #     locations.each do |location|
+  #       location_city = "#{location.city}"
+  #       location_state = "#{location.state}"
+  #       location_country = "#{location.country}" 
         
-         location_name = "#{location.city}, #{location.state} #{location.country}"
-          if locations_by_frequency[location_city]
-           locations_by_frequency[location_city] += 1
-          else
-           locations_by_frequency[location_city]= 1
-          end
-          if locations_by_frequency[location_state]
-           locations_by_frequency[location_state] += 1
-          else
-           locations_by_frequency[location_state]= 1
-          end
-          if locations_by_frequency[location_country]
-           locations_by_frequency[location_country] += 1
-          else
-           locations_by_frequency[location_country]= 1
-          end
-      end
-    end
-  end
+  #        location_name = "#{location.city}, #{location.state} #{location.country}"
+  #         if locations_by_frequency[location_city]
+  #          locations_by_frequency[location_city] += 1
+  #         else
+  #          locations_by_frequency[location_city]= 1
+  #         end
+  #         if locations_by_frequency[location_state]
+  #          locations_by_frequency[location_state] += 1
+  #         else
+  #          locations_by_frequency[location_state]= 1
+  #         end
+  #         if locations_by_frequency[location_country]
+  #          locations_by_frequency[location_country] += 1
+  #         else
+  #          locations_by_frequency[location_country]= 1
+  #         end
+  #     end
+  #   end
+  # end
 
 private
 
