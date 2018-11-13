@@ -7,10 +7,7 @@
         <%= f.input :name, label: "Your name:", class: "w-25" %><br><br>
         Upload you profile picture: <%= f.file_field :avatar %><br><br>
         <a><%= f.button :submit, "Update your profile", class: "btn btn-dark" %></a>
-      <% end %>
-      
-      <h3>Please list up to 3 places that you have lived at the longest. When you like a a place these locations will be linked to it!</h3>
-      <% simple_form_for @locations do |f| %>
+
         <%= f.input :city, class: "w-25" %><br>
         <%= f.input :state, class: "w-25" %><br>
         <%= f.input :country, class: "w-25" %><br><br>
@@ -22,6 +19,9 @@
         <%= f.input :country, class: "w-25" %><br><br>
         <%= f.button :submit, "Update your profile", class: "btn-lg, btn-danger w-25" %>
       <% end %>
+      
+      <h3>Please list up to 3 places that you have lived at the longest. When you like a a place these locations will be linked to it!</h3>
+
     </div>
   </div>
 </div>
