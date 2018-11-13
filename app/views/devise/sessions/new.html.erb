@@ -1,15 +1,14 @@
-<div class="c-container-page">
-  <h2>Log in</h2>
-
+<div class="jumbotron">
+  <h1 class="display-3 text-chicle">Log in to Food Mapp</h2>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="field">
       <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-25" %>
     </div>
 
     <div class="field">
       <%= f.label :password %><br />
-      <%= f.password_field :password, autocomplete: "current-password" %>
+      <%= f.password_field :password, autocomplete: "current-password", class: "w-25" %>
     </div>
 
     <% if devise_mapping.rememberable? -%>
@@ -20,7 +19,7 @@
     <% end -%>
 
     <div class="actions">
-      <%= f.submit "Log in" %>
+      <%= f.submit "Log In", class: "btn-lg btn-danger w-25" %>
     </div>
   <% end %>
 

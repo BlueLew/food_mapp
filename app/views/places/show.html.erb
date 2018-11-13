@@ -1,37 +1,39 @@
-<div class="jumbotron_show">
-  <div class="show_map_container">
+<div class="jumbotron">
+  <div class="show_map_container shadow-lg mr-0 mb-4 float-left">
     <div id="show_map"></div>
   </div>
-  <div>
-    <h1 class="display-4 text-chicle text-light"><%= @place.name %></h1>
-    <h4 class= "text-light"><%= @place.address %></h4>
-    <h4 class= "text-light"><%= @place.phone_number %></h4>
-    <h4 class= "text-light">Category: <%= @place.category %></h4>
-    <h4 class= "text-light">Total Likes Received by Users = <%= @place.likes.count %><%= (@place.likes.count) == 1 ? 'Like' : 'Likes'%></h4>
-    <h3 class= "text-light">Likes by Cities</h3>
-      <ol>
-        <% @likes_by_cities.each do |group| %>
-          <li class= "text-light"><%= "#{group[:name]} = #{group[:likes]} Likes" %></li>
-        <% end %>
-      </ol>
-    <h3 class= "text-light">Likes by States</h3>
-      <ol>
-        <% @likes_by_states.each do |group| %>
-          <li class= "text-light"><%= "#{group[:name]} = #{group[:likes]} Likes" %></li>
-        <% end %>
-      </ol>
-    <h3 class= "text-light">Likes by Countries</h3>
-      <ol>
-        <% @likes_by_countries.each do |group| %>
-          <li class= "text-light"><%= "#{group[:name]} = #{group[:likes]} Likes" %></li>
-        <% end %>
-      </ol>
-    <a><%= button_to 'Like', place_likes_path(@place), method: :post, class: "btn btn-success btn-lg" %></a><br><br>
-    <!-- <a><%# link_to "Back to Search", root_path, class: "btn btn-dark text-light" %></a> -->
+  <div class="card mb-3 border-0 w-50 ml-0 mr-0 mb-0 float-right">
+    <div class="card-body mt-0">
+      <h1 class="display-2 text-chicle"><%= @place.name %></h1>
+      <h3><%= @place.address %></h3>
+      <h3><%= @place.phone_number %></h3>
+      <h3>Category: <%= @place.category %></h3>
+      <h3 class= "text-primary"><%= @place.likes.count %><%= (@place.likes.count) == 1 ? ' Like' : ' Likes'%></h3>
+      <a><%= button_to 'Like', place_likes_path(@place), method: :post, class: "btn btn-success btn-lg w-50" %></a>
+    </div>
   </div>
-  <!-- <div class="map_container">
-    <div id="likes_map"></div>
-  </div> -->      
+  <div class="card mb-3 border-0 w-50 mt-0 ml-0 mr-0 float-right">
+    <div class="card-body mt-0 ml-0 mr-0">
+      <h1 class="display-4 text-chicle">Likes by Cities</h1>
+        <ol>
+          <% @likes_by_cities.each do |group| %>
+            <h4><li><%= "#{group[:name]} = #{group[:likes]} Likes" %></li></h4>
+          <% end %>
+        </ol>
+      <h1 class="display-4 text-chicle">Likes by States</h1>
+        <ol>
+          <% @likes_by_states.each do |group| %>
+            <h4><li><%= "#{group[:name]} = #{group[:likes]} Likes" %></li></h4>
+          <% end %>
+        </ol>
+      <h1 class="display-4 text-chicle">Likes by Countries</h1>
+        <ol>
+          <% @likes_by_countries.each do |group| %>
+            <h4><li><%= "#{group[:name]} = #{group[:likes]} Likes" %></li></h4>
+          <% end %>
+        </ol>
+    </div>
+  </div>
 </div>
 <script>
   var place = <%== {lat: @place.latitude, lng: @place.longitude }.to_json %>;
