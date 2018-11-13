@@ -1,17 +1,51 @@
 <div class="c-section">
-  <% @places.each do |place| %>
-    <div class="c-card u-margin-bottom-small">
-      <div class="c-section">
-        <h2 class="c-title"><%= place.name %></h2>
-        <h3 class="c-title c-title--tiny"><%= place.address %></h3>
-        <h4 class="c-title c-title--tiny"><%= place.phone_number %></h4>
-        <h4 class="c-title c-title--tiny">Type of Restaurant: <%= place.category %></h4>
-        <h4 class="c-title c-title--tiny"># of Likes = <%= place.likes.count %></h4>
-        <h4 class="c-title c-title--tiny"> <%# place.locations %></h4>
-        <%# image_tag place.image.variant(resize: "200x300") %>
-        <button><%= link_to "More Info", admin_places_edit_path(place), class: "c-button c-button--small c-button--focal"%></button>
-        <button><%= link_to "Delete", admin_places_edit_path, method: :delete, class: "c-button c-button--warning"%></button>
-      </div>
+  <h1 class="display-5">Search for Restaurants</h1>
+  <form class= "form-inline">
+    <label class="sr-only" for="inlineFormInputGroup">Restaurant Search</label>
+    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+      <%= form_tag(places_path, method: "get") do %>
+        <%= text_field_tag :search, nil, placeholder: "Search by name or category and press Enter", class: "form-control", style: "width: 25%;" %>
+        <%= submit_tag "", style: "display: none; width: 25%;" %>
+        <button type="submit" class="btn btn-dark"><%= submit_tag "", style: "display: none;" %>Search</button>
+      <% end %>
     </div>
-  <% end %>
+  </form>
 </div>
+<div class="card">
+  <!-- <img class="card-img-top" src="/images/bootstrap-themes/card.png" alt="Card image cap"> -->
+  <div class="card-body">
+    <% @places.each do |place| %>
+    <h1 class="display-4 text-chicle"><%= place.name %></h1>
+    <h4><%= place.address %></h4>
+    <h4><%= place.phone_number %></h4>
+    <h4>Category: <%= place.category %></h4>
+    <h4>Total Likes = <%= place.likes.count %><%= (place.likes.count) == 1 ? 'Like' : 'Likes'%></h4>
+    <h4> <%# place.locations %></h4>
+    <%# image_tag place.image.variant(resize: "200x300") %>
+    <a><%= link_to "More Info", admin_place_path(place), class: "btn btn-dark btn-lg"%></a><br><br>
+    <a><%= link_to 'Delete', admin_places_path, method: :destroy, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-lg"%></a><br><br><br>
+    <% end %>
+  </div>
+</div>
+<nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item disabled">
+      <span class="page-link">Previous</span>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#!">1</a>
+    </li>
+    <li class="page-item active">
+      <span class="page-link">
+        2
+        <span class="sr-only">(current)</span>
+      </span>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#!">3</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#!">Next</a>
+    </li>
+  </ul>
+</nav>

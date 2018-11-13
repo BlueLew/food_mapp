@@ -1,52 +1,27 @@
-<h4>
-  <div class="c-section">
-  <h1 class="c-title c-title--large">Edit Your Profile</h1>
-    <div class="c-section">
-      <h4 class="c-title">
+<div class= "jumbotron">
+  <h1 class= "display-4 text-chicle text-primary">Step #2</h1>
+  <h1 class= "display-5 text-chicle text-primary">Please Tell Us More About Yourself!</h1>
+  <div class="card mb-3 border-0 ml-0 mr-0 mb-0">
+    <div class="card-body">
       <%= simple_form_for @user do |f| %>
-        <%= f.input :name, label: "Your name:" %><br><br>
-        Upload you profile picture. <%= f.file_field :avatar %><br><br>
-        <%= f.button :submit, "Update your profile" %><br><br>
+        <%= f.input :name, label: "Your name:", class: "w-25" %><br><br>
+        Upload you profile picture: <%= f.file_field :avatar %><br><br>
+        <a><%= f.button :submit, "Update your profile", class: "btn btn-dark" %></a>
       <% end %>
-      Locations where you resided?<br>
-      <%= simple_form_for @locations do |f| %>
-        <%= f.input :city %><br>
-        <%= f.input :state %><br>
-        <%= f.input :country %><br>
-        <%= f.button :submit, "Update your profile" %>
+      
+      <h3>Please list up to 3 places that you have lived at the longest. When you like a a place these locations will be linked to it!</h3>
+      <% simple_form_for @locations do |f| %>
+        <%= f.input :city, class: "w-25" %><br>
+        <%= f.input :state, class: "w-25" %><br>
+        <%= f.input :country, class: "w-25" %><br><br>
+        <%= f.input :city, class: "w-25" %><br>
+        <%= f.input :state, class: "w-25" %><br>
+        <%= f.input :country, class: "w-25" %><br><br>
+        <%= f.input :city, class: "w-25" %><br>
+        <%= f.input :state, class: "w-25" %><br>
+        <%= f.input :country, class: "w-25" %><br><br>
+        <%= f.button :submit, "Update your profile", class: "btn-lg, btn-danger w-25" %>
       <% end %>
-
-
-        <%# form_for current_user do |f| %>
-          Name: <%# f.text_field :name %><br><br>
-          Avatar: <%# f.file_field :avatar %><br><br>
-          <%# f.submit %>
-        <%# end %>
-        <%# form_for current_user.locations do |f| %>
-          Cities where you resided?<br>
-          <%# f.text_field :city %><br>
-          <%# f.text_field :city %><br>
-          <%# f.text_field :city %><br><br>
-          States where you resided?<br>
-          <%# f.text_field :state %><br>
-          <%# f.text_field :state %><br>
-          <%# f.text_field :state %><br><br>
-          Countries where you resided?<br>
-          <%# f.text_field :country %><br>
-          <%# f.text_field :country %><br>
-          <%# f.text_field :country %><br><br>
-          <%# f.submit %>
-        <%# end %>
-      </h4>
     </div>
+  </div>
 </div>
-
-  <%# simple_form_for current_user do |f| %>
-    <%# f.input :name, label: "Name:" %><br>
-    <%# f.input[type#file] :avatar, label: "Upload your avatar" %><br>
-    <%# f.input :city, label: "City where you resided" %><br>
-    <%# f.input :state, label: "Country where you resided" %><br>
-    <%# f.input :country, label: "Country where you resided" %><br>
-    <%# f.button :submit, label: "Enter" %>
-  <%# end %>
-</h4>

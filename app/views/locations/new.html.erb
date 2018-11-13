@@ -1,0 +1,9 @@
+<div>
+  <h2>Locations where you resided?</h2><br>
+  <% simple_form_for @location do |f| %>
+    <%= f.input :city %><br>
+    <%= f.input :state %><br>
+    <%= f.input :country %><br>
+    <%= f.button :submit, "Add this location to your profile." %>
+  <% end %>
+</div>

@@ -4,67 +4,133 @@
     <title>FoodMapp</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Chicle|Open+Sans" rel="stylesheet">
   </head>
-  <div class="c-container-page">
-  <header>
-    <div class="c-section">
-      <h1 class="c-title c-title--large">Food Mapp</h1>
-      <ul class="c-navigation">
-        <li class="c-navigation__item">
-          <%= link_to "Home", root_path, class: "c-navigation__link c-navigation__link--active" %>
-        </li>
-        <% if current_user %>
-          </li>
-          <li class="c-navigation__item c-navigation__item--push-right">  
-            <%= image_tag current_user.avatar.variant(resize: "25 x 40")%>
-            Welcome, <%= current_user.name %>!
+  <body class="ht-body ht-tm-bubblegum">
+  <div class="ht-main">
+    <header class="ht-header">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <h2 class= "text-chicle text-light mr-3">Food Mapp</h2>
+          <div class="collapse navbar-collapse" id="navbar">
+          <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+            <li class="nav-item active">
+              <a><%= link_to "Home", root_path, class: "nav-link btn btn-danger mr-3" %>
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <%# if current_user.avatar.attached? %>
+              <li class= "nav-item">
+                <%# image_tag current_user.avatar.variant(resize: "35 x 50"), class: "rounded-circle" %>
+              </li>
+            <%# end %>
             <% if current_user %>
-              <%= link_to "Edit Profile", edit_user_path(current_user), class: "c-link" %>
+              <li class="nav-item">  
+                <span class= "nav-link text-chicle text-light mr-3"> Welcome, <%= current_user.name %>!</span>
+              </li>
+            <% if current_user %>
+              <li class="nav-item">
+                <a><%= link_to "View Profile", user_path(current_user),class: "nav-link mr-3" %></a>
+              </li>
             <% end %>
-            <%= link_to("Logout", destroy_user_session_path, method: :delete, class: "c-link") %>
+            <li class="nav-item">
+              <a><%= link_to("Logout", destroy_user_session_path, method: :delete, class: "nav-link mr-3") %></a>
+            </li>
+            <% else %>
+            <li class="nav-item">
+              <a><%= link_to "Log In", new_user_session_path, class: "nav-link mr-3" %></a>
+            </li>
+            <li class= "nav-item">
+              <a><%= link_to "Sign Up", new_user_registration_path, class: "nav-link mr-3" %></a>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+      </nav>
+      <p class="notice text-danger"><%= notice %></p>
+      <p class="alert text-danger"><%= alert %></p>
+      <!-- <div>
+        <ul class="c-navigation">
+          <li class="c-navigation__item">
+            <%# link_to "Home", root_path, class: "c-navigation__link c-navigation__link--active" %>
           </li>
-        <% else %>
-          <li class="c-navigation__item c-navigation__item--push-right">
+          <%# if current_user %>
+            </li>
+            <li class#"c-navigation__item c-navigation__item--push-right">  
+              <%# image_tag current_user.avatar.variant(resize: "25 x 40")%>
+              Welcome, <%# current_user.name %>!
+              <%# if current_user %>
+                <%# link_to "View Profile", user_path(current_user), class: "c-link" %>
+              <%# end %>
+              <%# link_to("Logout", destroy_user_session_path, method: :delete, class: "c-link") %>
+            </li>
+          <%# else %>
+            <li class#"c-navigation__item c-navigation__item--push-right">
 
-            <%= link_to "Log In", new_user_session_path, class: "c-navigation__link" %> or <%= link_to "Sign Up", new_user_registration_path, class: "c-navigation__link" %>
+              <%# link_to "Log In", new_user_session_path, class: "c-navigation__link" %> or <%# link_to "Sign Up", new_user_registration_path, class: "c-navigation__link" %>
+            </li>
+          <%# end %>
+        </ul>
+      </div> -->
+    </header>
+      <%= yield %>
+    <footer>
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+          data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <h2 class= "text-chicle text-light">Food Mapp</h2>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+          <li class="nav-item active">
+            <a><%# link_to "Home", root_path, class: "nav-link" %>
+              <span class="sr-only">(current)</span>
+            </a>
           </li>
-        <% end %>
-      </ul>
-    </div>
-  </header>
-  <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+          <%# if current_user %>
+          <li class= "nav-item">
+            <span class= "nav-link">Logged in as <%# current_user.email %></span>
+          </li>
+          <%# if current_user %>
+          <li class="nav-item">
+            <a><%# link_to "View Profile", user_path(current_user),class: "nav-link" %></a>
+          </li>
+          <%# end %>
+          <li class="nav-item">
+            <a><%# link_to("Logout", destroy_user_session_path, method: :delete, class: "nav-link") %></a>
+          </li>
+          <%# else %>
+          <li class="nav-item">
+            <a><%# link_to "Log In", new_user_session_path, class: "nav-link" %></a>
+          </li>
+          <%# end %>
+        </ul>
+      </nav>
+    </div> -->
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/superagent/3.8.3/superagent.js"></script>
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"></script>
-    <script src="index.js"></script>
+    <!-- <script src="places.js"></script> -->
+  </div>
   </body>
-  <footer>
-    <div class="c-section">
-        <h1 class="c-title">Food Mapp</h1>
-        <ul class="c-navigation">
-          <li class="c-navigation__item">
-            <%= link_to "Home", root_path, class: "c-navigation__link c-navigation__link--active" %>
-          </li>
-          <% if current_user %>
-            <li class="c-navigation__item c-navigation__item--push-right">
-              Logged in as <%= current_user.email %>
-            </li>
-          <% else %>
-            <li class="c-navigation__item c-navigation__item--push-right">
-
-              <%= link_to "Log In", new_user_session_path, class: "c-navigation__link" %> or <%= link_to "Sign Up", new_user_registration_path, class: "c-navigation__link" %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-  </footer>
 </html>

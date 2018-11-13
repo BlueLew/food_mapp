@@ -1,25 +1,64 @@
-<div class="c-section">
-  <h1 class="c-title c-title--large"><%= @place.name %></h1>
-  <h2 class="c-title"><%= @place.address %></h2>
-  <h2 class="c-title"><%= @place.phone_number %></h2>
-  <h2 class="c-title">Type of Restaurant: <%= @place.category %></h2>
-  <h2 class="c-title c-title--tiny"># of Likes Received by Users = <%= @place.likes.count %></h2>
-  <h3 class="c-title c-title--tiny">Likes by Cities</h3>
-  <ol>
-    <% @likes_by_cities.each do |city, locations| %>
-      <li><%= city %></li>
-    <% end %>
-  </ol>
-  <h3 class="c-title c-title--tiny">Likes by States</h3>
-  <ol>
-    <% @likes_by_states.each do |state, locations| %>
-      <li><%= state %></li>
-    <% end %>
-  </ol>
-  <h3 class="c-title c-title--tiny">Likes by Countries</h3>
-  <ol>
-    <% @likes_by_countries.each do |country, locations| %>
-      <li><%= country %></li>
-    <% end %>
-  </ol>
+<div class="jumbotron">
+  <div class="show_map_container shadow-lg mr-0 mb-4 float-left">
+    <div id="show_map"></div>
+  </div>
+  <div class="card mb-3 border-0 w-50 ml-0 mr-0 mb-0 float-right">
+    <div class="card-body mt-0">
+      <h1 class="display-2 text-chicle"><%= @place.name %></h1>
+      <h3><%= @place.address %></h3>
+      <h3><%= @place.phone_number %></h3>
+      <h3>Category: <%= @place.category %></h3>
+      <h3 class= "text-primary"><%= @place.likes.count %><%= (@place.likes.count) == 1 ? ' Like' : ' Likes'%></h3>
+      <a><%= button_to 'Like', place_likes_path(@place), method: :post, class: "btn btn-success btn-lg w-50" %></a>
+    </div>
+  </div>
+  <div class="card mb-3 border-0 w-50 mt-0 ml-0 mr-0 float-right">
+    <div class="card-body mt-0 ml-0 mr-0">
+      <h1 class="display-4 text-chicle">Likes by Cities</h1>
+        <ol>
+          <% @likes_by_cities.each do |group| %>
+            <h4><li><%= "#{group[:name]} = #{group[:likes]} Likes" %></li></h4>
+          <% end %>
+        </ol>
+      <h1 class="display-4 text-chicle">Likes by States</h1>
+        <ol>
+          <% @likes_by_states.each do |group| %>
+            <h4><li><%= "#{group[:name]} = #{group[:likes]} Likes" %></li></h4>
+          <% end %>
+        </ol>
+      <h1 class="display-4 text-chicle">Likes by Countries</h1>
+        <ol>
+          <% @likes_by_countries.each do |group| %>
+            <h4><li><%= "#{group[:name]} = #{group[:likes]} Likes" %></li></h4>
+          <% end %>
+        </ol>
+    </div>
+  </div>
 </div>
+<script>
+  var place = <%== {lat: @place.latitude, lng: @place.longitude }.to_json %>;
+  
+  var map;
+
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('show_map'), {
+      center: {lat: place.latitude, lng: place.longitude},
+      zoom: 20
+    });
+
+    var position = new google.maps.LatLng(place.lat, place.lng);
+    var marker = new google.maps.Marker({
+      position: position,
+      map: map
+    });
+
+    // places.forEach(function(place) {
+    //   var position = new google.maps.LatLng(place.lat, place.lng);
+    //   var marker = new google.maps.Marker({
+    //     position: position,
+    //     map: map
+    //   });
+    // });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUbWRtQWZ3pC8radEZuKVryQ8A2dlayQw&callback=initMap" async defer></script>
