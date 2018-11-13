@@ -1,24 +1,26 @@
 <div class="jumbotron">
   <h1 class="display-1 text-chicle">Food Mapp</h1>
-    <p class="lead">Food Mapp puts you and your favorite food spots on the map!</p>
+  <p class="lead">Food Mapp puts you and your favorite food spots on the map!</p>
   <hr class="my-4">
-  <div class="map_container shadow-lg mr-0 mb-4 float-left">
+  <div class="map_container shadow-lg mr-0 mb-4 float-left sticky">
     <div id="map"></div>
   </div>
   <div class="card mb-3 border-0 w-50 ml-0 mr-0 float-right">
-    <div class="card-body mt-0">
-      <h1 class="display-3 text-chicle">Search for Restaurants</h1>
-      <form class= "form-inline">
-        <label class="sr-only" for="inlineFormInputGroup">Restaurant Search</label>
-        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-          <%= form_tag(places_path, method: "get") do %>
-            <%= text_field_tag :search, nil, placeholder: "Search by name or category and press Enter", class: "form-control w-50 mb-3 pb-2" %>
-            <%= submit_tag "", style: "display: none;" %>
-            <button type="submit" class="btn btn-dark ml-2"><%= submit_tag "", style: "display: none;" %>Search</button>
-          <% end %>
-          <a><%= link_to "Add a Restaurant to Food Mapp!", new_place_path, class: "btn btn-danger btn-lg" %></a>
-        </div>
-      </form>
+    <div class= "sticky">
+      <div class="card-body mt-0 bg-dark rounded">
+        <h1 class="display-3 text-chicle text-light">Search for Restaurants</h1>
+        <form class= "form-inline">
+          <label class="sr-only" for="inlineFormInputGroup">Restaurant Search</label>
+          <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <%= form_tag(places_path, method: "get") do %>
+              <%= text_field_tag :search, nil, placeholder: "Search by name or category and press Enter", class: "form-control w-50 mb-3 pb-2" %>
+              <%= submit_tag "", style: "display: none;" %>
+              <button type="submit" class="btn btn-danger ml-2"><%= submit_tag "", style: "display: none;" %>Search</button>
+            <% end %>
+            <a><%= link_to "Add a Restaurant to Food Mapp!", new_place_path, class: "btn btn-danger btn-lg" %></a>
+          </div>
+        </form>
+      </div>
     </div>
     <div class="card-body">
       <% @places.each do |place| %>
@@ -37,17 +39,16 @@
         <li class="page-item disabled">
           <span class="page-link">Previous</span>
         </li>
-        <li class="page-item">
-          <a class="page-link" href="#!">1</a>
-        </li>
         <li class="page-item active">
-          <span class="page-link">
-            2
+          <span class="page-link">1
             <span class="sr-only">(current)</span>
           </span>
         </li>
         <li class="page-item">
-          <a class="page-link" href="#!">3</a>
+          <a class="page-link" href="#!">2</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#!">3</a>  
         </li>
         <li class="page-item">
           <a class="page-link" href="#!">Next</a>
@@ -55,23 +56,7 @@
       </ul>
     </nav>
   </div>
-  
-
-  <%# @places.each do |place| %>
-    <!-- <div class="c-card u-margin-bottom-small">
-      <div class="c-section">
-        <h2 class="c-title"><%# place.name %></h2>
-        <h3 class="c-title c-title--tiny"><%# place.address %></h3>
-        <h4 class="c-title c-title--tiny"><%# place.phone_number %></h4>
-        <h4 class="c-title c-title--tiny">Type of Restaurant: <%# place.category %></h4>
-        <h4 class="c-title c-title--tiny"># of Likes = <%# place.likes.count %></h4>
-        <h4 class="c-title c-title--tiny"> <%# place.locations %></h4>
-        <%# image_tag place.image.variant(resize: "200x300") %>
-        <button><%# link_to "More Info", place_path(place), class: "c-button c-button--small c-button--focal"%></button>
-      </div>
-    </div> -->
-  <%# end %>
-<!-- </div> -->
+</div>
 
 <script>
   var places = <%== @places.map { |place| {lat: place.latitude, lng: place.longitude }}.to_json %>;

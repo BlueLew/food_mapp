@@ -43,6 +43,12 @@
   border: none;
   border-radius: 25px;
 }
+
+.sticky {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 50px;
+}
 /*! Bootstrap 4 "Bubblegum" Theme by HackerThemes, https://hackerthemes.com */
 /*!
  * Bootstrap v4.1.3 (https://getbootstrap.com/)
@@ -6588,7 +6594,8 @@ button.bg-dark:focus {
   position: absolute !important; }
 
 .position-fixed {
-  position: fixed !important; }
+  position: fixed !important;
+}
 
 .position-sticky {
   position: -webkit-sticky !important;
