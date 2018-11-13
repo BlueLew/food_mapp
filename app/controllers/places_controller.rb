@@ -1,4 +1,5 @@
 class PlacesController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :edit, :update]
 
   def index
     if params[:search].present?
@@ -12,13 +13,12 @@ class PlacesController < ApplicationController
   def show
     @place = Place.find(params[:id])
     @likes = @place.likes
-    #@locations = @users.map(&:locations).flatten
-    @likes_by_cities = @place.locations.group_by(&:city).map { 
-      |city, location| "#{city} = #{location.count} likes"}
-    @likes_by_states = @place.locations.group_by(&:state).map { 
-      |state, location| "#{state} = #{location.count} likes"}
-    @likes_by_countries = @place.locations.group_by(&:country).map { 
-      |country, location| "#{country} = #{location.count} likes"}
+    @users = User.all
+    @locations = @users.map(&:locations).flatten
+    #@frequency = location_frequency(@locations)
+    @likes_by_cities = likes_by(:city)
+    @likes_by_states = likes_by(:state)
+    @likes_by_countries = likes_by(:country)
   end
 
   def update
@@ -32,13 +32,62 @@ class PlacesController < ApplicationController
   end
 
   def create
-    #before_action :authenticate_user!
-    Place.find_or_create_by(
-      name: params[:place][:name],
-      address: params[:place][:address],
-      phone_number: params[:place][:phone_number],
-      category: params[:place][:category]
-      )
+    if already_added?
+      flash[:notice] = "This restaurant has already been added!"
+    else
+      Place.find_or_create_by(
+        name: params[:place][:name],
+        address: params[:place][:address],
+        phone_number: params[:place][:phone_number],
+        category: params[:place][:category]
+        )
+      flash[:notice] = "You have successfully added this restaurant to Food Mapp!"
+    end
     redirect_to places_path
+  end
+
+  # def location_frequency(locations)
+  #   {}.tap do |locations_by_frequency|
+  #     locations.each do |location|
+  #       location_city = "#{location.city}"
+  #       location_state = "#{location.state}"
+  #       location_country = "#{location.country}" 
+        
+  #        location_name = "#{location.city}, #{location.state} #{location.country}"
+  #         if locations_by_frequency[location_city]
+  #          locations_by_frequency[location_city] += 1
+  #         else
+  #          locations_by_frequency[location_city]= 1
+  #         end
+  #         if locations_by_frequency[location_state]
+  #          locations_by_frequency[location_state] += 1
+  #         else
+  #          locations_by_frequency[location_state]= 1
+  #         end
+  #         if locations_by_frequency[location_country]
+  #          locations_by_frequency[location_country] += 1
+  #         else
+  #          locations_by_frequency[location_country]= 1
+  #         end
+  #     end
+  #   end
+  # end
+
+private
+  def already_added?
+    Place.where(id: params[:id]).exists?
+  end
+
+  def likes_by(geography)
+    @place.locations.group_by(&geography).map { |group, locations|
+      unless group.blank?
+        {
+          name: group,
+          likes: locations.count 
+        } 
+      end
+    }.compact.sort_by { |group| 
+      group[:likes]
+    }.reverse
   end
 end
