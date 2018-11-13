@@ -1,5 +1,5 @@
-<div class= "jumbotron">
-  <h1 class= "display-2 text-chicle"><%= current_user.name %>'s Profile Page</h1>
+<div class= "container">
+  <h1 class= "display-2 text-chicle text-center mt-5 ml-0"><%= current_user.name %>'s Profile Page</h1>
   <div class="card mb-3 border-0 w-50 ml-0 mr-0 mb-0 float-left">
     <div class="card-body">
       <% if current_user.avatar.attached? %>
@@ -8,7 +8,7 @@
       <% end %>
       <a><%= link_to "Edit Profile", edit_user_path(current_user), class: "btn btn-dark" %></a>
       <a><%= link_to "Change Email or Password", edit_user_registration_path(current_user), class: "btn btn-dark" %></a>
-      <a><%= link_to 'Delete Profile', registration_path(current_user), method: :destroy, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"%></a><br><br>
+      <a><%= link_to 'Delete Profile', registration_path(current_user), method: :destroy, data: { confirm: 'Are you sure?' }, class: "btn btn-danger mt-3"%></a><br><br>
     </div>
   </div>
   <div class="card mb-3 border-0 w-50 ml-0 mr-0 mb-0 float-right">
