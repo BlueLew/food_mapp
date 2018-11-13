@@ -15,49 +15,51 @@
   <body class="ht-body ht-tm-bubblegum">
   <div class="ht-main">
     <header class="ht-header">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-          data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
-          aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <h2 class= "text-chicle text-light">Food Mapp</h2>
-        <div class="collapse navbar-collapse" id="navbar">
-        <ul class="navbar-nav mr-auto mt-2 mt-md-0">
-          <li class="nav-item active">
-            <a><%= link_to "Home", root_path, class: "nav-link" %>
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <%# if current_user.avatar.attached? %>
-          <li class= "nav-item">
-            <%# image_tag current_user.avatar.variant(resize: "35 x 50")%>
-          </li>
-          <%# end %>
-          <% if current_user %>
-          <li class="nav-item">  
-            <span class= "nav-link text-chicle text-light"> Welcome, <%= current_user.name %>!</span>
-          </li>
-          <% if current_user %>
-          <li class="nav-item">
-            <a><%= link_to "View Profile", user_path(current_user),class: "nav-link" %></a>
-          </li>
-          <% end %>
-          <li class="nav-item">
-            <a><%= link_to("Logout", destroy_user_session_path, method: :delete, class: "nav-link") %></a>
-          </li>
-          <% else %>
-          <li class="nav-item">
-            <a><%= link_to "Log In", new_user_session_path, class: "nav-link" %></a>
-          </li>
-          <li class= "nav-item">
-            <a><%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %></a>
-          </li>
-          <% end %>
-        </ul>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <h2 class= "text-chicle text-light mr-3">Food Mapp</h2>
+          <div class="collapse navbar-collapse" id="navbar">
+          <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+            <li class="nav-item active">
+              <a><%= link_to "Home", root_path, class: "nav-link btn btn-danger mr-3" %>
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <%# if current_user.avatar.attached? %>
+              <li class= "nav-item">
+                <%# image_tag current_user.avatar.variant(resize: "35 x 50"), class: "rounded-circle" %>
+              </li>
+            <%# end %>
+            <% if current_user %>
+              <li class="nav-item">  
+                <span class= "nav-link text-chicle text-light mr-3"> Welcome, <%= current_user.name %>!</span>
+              </li>
+            <% if current_user %>
+              <li class="nav-item">
+                <a><%= link_to "View Profile", user_path(current_user),class: "nav-link mr-3" %></a>
+              </li>
+            <% end %>
+            <li class="nav-item">
+              <a><%= link_to("Logout", destroy_user_session_path, method: :delete, class: "nav-link mr-3") %></a>
+            </li>
+            <% else %>
+            <li class="nav-item">
+              <a><%= link_to "Log In", new_user_session_path, class: "nav-link mr-3" %></a>
+            </li>
+            <li class= "nav-item">
+              <a><%= link_to "Sign Up", new_user_registration_path, class: "nav-link mr-3" %></a>
+            </li>
+            <% end %>
+          </ul>
+        </div>
       </nav>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <p class="notice text-danger"><%= notice %></p>
+      <p class="alert text-danger"><%= alert %></p>
       <!-- <div>
         <ul class="c-navigation">
           <li class="c-navigation__item">
@@ -84,7 +86,7 @@
     </header>
       <%= yield %>
     <footer>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
           data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
           aria-label="Toggle navigation">
@@ -94,30 +96,30 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav mr-auto mt-2 mt-md-0">
           <li class="nav-item active">
-            <a><%= link_to "Home", root_path, class: "nav-link" %>
+            <a><%# link_to "Home", root_path, class: "nav-link" %>
               <span class="sr-only">(current)</span>
             </a>
           </li>
-          <% if current_user %>
+          <%# if current_user %>
           <li class= "nav-item">
-            <span class= "nav-link">Logged in as <%= current_user.email %></span>
+            <span class= "nav-link">Logged in as <%# current_user.email %></span>
           </li>
-          <% if current_user %>
+          <%# if current_user %>
           <li class="nav-item">
-            <a><%= link_to "View Profile", user_path(current_user),class: "nav-link" %></a>
+            <a><%# link_to "View Profile", user_path(current_user),class: "nav-link" %></a>
           </li>
-          <% end %>
+          <%# end %>
           <li class="nav-item">
-            <a><%= link_to("Logout", destroy_user_session_path, method: :delete, class: "nav-link") %></a>
+            <a><%# link_to("Logout", destroy_user_session_path, method: :delete, class: "nav-link") %></a>
           </li>
-          <% else %>
+          <%# else %>
           <li class="nav-item">
-            <a><%= link_to "Log In", new_user_session_path, class: "nav-link" %></a>
+            <a><%# link_to "Log In", new_user_session_path, class: "nav-link" %></a>
           </li>
-          <% end %>
+          <%# end %>
         </ul>
       </nav>
-    </div>
+    </div> -->
     </footer>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

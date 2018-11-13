@@ -32,12 +32,17 @@ class PlacesController < ApplicationController
   end
 
   def create
-    Place.find_or_create_by(
-      name: params[:place][:name],
-      address: params[:place][:address],
-      phone_number: params[:place][:phone_number],
-      category: params[:place][:category]
-      )
+    if already_added?
+      flash[:notice] = "This restaurant has already been added!"
+    else
+      Place.find_or_create_by(
+        name: params[:place][:name],
+        address: params[:place][:address],
+        phone_number: params[:place][:phone_number],
+        category: params[:place][:category]
+        )
+      flash[:notice] = "You have successfully added this restaurant to Food Mapp!"
+    end
     redirect_to places_path
   end
 
@@ -69,6 +74,9 @@ class PlacesController < ApplicationController
   # end
 
 private
+  def already_added?
+    Place.where(id: params[:id]).exists?
+  end
 
   def likes_by(geography)
     @place.locations.group_by(&geography).map { |group, locations|

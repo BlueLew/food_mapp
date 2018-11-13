@@ -1,14 +1,12 @@
-<div class="c-section">
-  <h1 class="c-title">Add a Restaurant</h1>
-</div>
-<div class="c-section">
-  <h4 class="c-title">
+<div class= "jumbotron">
+  <h1 class="display-2 text-chicle ml-4 mt-4">Add a Restaurant to Food Mapp</h1>
+  <div class= "card-body w-50">
     <%= simple_form_for @place do |f| %>
-      <%= f.input :name, label: "Name of Restaurant:" %><br>
-      <%= f.input :address, label: "Restaurant's Address:" %><br>
-      <%= f.input :phone_number, label: "Phone Number:", placeholder: "(555) 555-5555" %><br>
-      <%= f.input :category, label: "Category:", placeholder: "American, Casual, etc." %><br>
-      <button><%= f.button :submit, label: "Add Restaurant" %></button>
+      <%= f.input :name, label: "Name of Restaurant:" %>
+      <%= f.input :address, label: "Restaurant's Address:", placeholder: "123 Street, City, State Zip" %>
+      <%= f.input :phone_number, label: "Phone Number:", placeholder: "(555) 555-5555" %>
+      <%= f.input :category, label: "Category:", placeholder: "American, Casual, etc." %>
+      <a><%= f.button :submit, label: "Add Restaurant", class: "btn btn-danger btn-lg w-50" %></a>
     <% end %>
-  </h4>
+  </div>
 </div>

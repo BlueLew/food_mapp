@@ -13,13 +13,12 @@
  *= require_tree .
  *= require_self
  */
-
 #map {
   height: 500px;
 }
 
 #show_map {
-  height: 300px;
+  height: 500px;
 }
 
 #likes_map {
@@ -34,8 +33,8 @@
 }
 
 .show_map_container {
-  width: 30%;
-  height: 30%;
+  width: 45%;
+  height: 45%;
   z-index: 500;
   display: inline-block;
 }
@@ -4355,11 +4354,24 @@ input[type="button"].btn-block {
 .jumbotron {
   padding: 0rem 1rem;
   margin-bottom: 2rem;
-  background-color: #6AD1AA;
+  background-color: #fff;
   border-radius: 10px; }
   @media (min-width: 576px) {
     .jumbotron {
       padding: 4rem 2rem; } }
+
+.jumbotron_sign_up {
+  background-image: url('brett-zeck-672527-unsplash.jpg');
+  padding: 0rem 1rem;
+  margin-bottom: 2rem;
+  background-color: #fff;
+  background: none;
+  border-radius: 10px; }
+  @media (min-width: 576px) {
+    .jumbotron {
+      padding: 4rem 2rem; }
+}
+
 
 .jumbotron_show {
   padding: 0rem 1rem;
