@@ -6,22 +6,16 @@
       <%= simple_form_for @user do |f| %>
         <%= f.input :name, label: "Your name:", class: "w-25" %><br><br>
         Upload you profile picture: <%= f.file_field :avatar %><br><br>
+        <div class= "locations">
+          <%= f.simple_fields_for :locations do |builder| %>
+            <%= render "location_fields", f: builder%>
+          <% end %>
+        </div>
+        <a><%= link_to_add_association 'Add City', f.input, :cities, class: "btn, btn-primary", data: { association_insertion_node: ".locations", association_insertion_method: :append } %></a>
+        <a><%= link_to_add_association 'Add State', f.input, :states, class: "btn, btn-primary", data: { association_insertion_node: ".locations", association_insertion_method: :append } %></a>
+        <a><%= link_to_add_association 'Add Country', f.input, :countries, class: "btn, btn-primary", data: { association_insertion_node: ".locations", association_insertion_method: :append } %></a>
         <a><%= f.button :submit, "Update your profile", class: "btn btn-dark" %></a>
-
-        <%= f.input :city, class: "w-25" %><br>
-        <%= f.input :state, class: "w-25" %><br>
-        <%= f.input :country, class: "w-25" %><br><br>
-        <%= f.input :city, class: "w-25" %><br>
-        <%= f.input :state, class: "w-25" %><br>
-        <%= f.input :country, class: "w-25" %><br><br>
-        <%= f.input :city, class: "w-25" %><br>
-        <%= f.input :state, class: "w-25" %><br>
-        <%= f.input :country, class: "w-25" %><br><br>
-        <%= f.button :submit, "Update your profile", class: "btn-lg, btn-danger w-25" %>
       <% end %>
-      
-      <h3>Please list up to 3 places that you have lived at the longest. When you like a a place these locations will be linked to it!</h3>
-
     </div>
   </div>
 </div>
