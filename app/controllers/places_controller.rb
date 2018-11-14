@@ -5,7 +5,7 @@ class PlacesController < ApplicationController
     if params[:search].present?
       @places = Place.perform_search(params[:search])
     else
-      @places = Place.all
+      @places = Place.all.order(name: :asc)
     end
     @place = Place.new
   end
