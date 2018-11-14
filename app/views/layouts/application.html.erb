@@ -30,6 +30,9 @@
                 <span class="sr-only">(current)</span>
               </a>
             </li>
+            <li class="nav-item active">
+              <a><%= link_to "Add Restaurant", new_place_path, class: "nav-link btn btn-primary mr-3" %></a>
+            </li>
             <%# if current_user.avatar.attached? %>
               <li class= "nav-item">
                 <%# image_tag current_user.avatar.variant(resize: "35 x 50"), class: "rounded-circle" %>
@@ -56,70 +59,23 @@
             </li>
             <% end %>
           </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <label class="sr-only" for="inlineFormInputGroup">Restaurant Search</label>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+              <%= form_tag(places_path, method: "get") do %>
+                <%= text_field_tag :search, nil, placeholder: "Search Restaurants", class: "form-control mr-sm-2" %>
+                <%= submit_tag "", style: "display: none;" %>
+                <button type="submit" class="btn btn-danger ml-2 h-50"><%= submit_tag "", style: "display: none;" %>Search</button>
+              <% end %>
+            </div>
+          </form>
         </div>
       </nav>
       <p class="notice text-danger"><%= notice %></p>
       <p class="alert text-danger"><%= alert %></p>
-      <!-- <div>
-        <ul class="c-navigation">
-          <li class="c-navigation__item">
-            <%# link_to "Home", root_path, class: "c-navigation__link c-navigation__link--active" %>
-          </li>
-          <%# if current_user %>
-            </li>
-            <li class#"c-navigation__item c-navigation__item--push-right">  
-              <%# image_tag current_user.avatar.variant(resize: "25 x 40")%>
-              Welcome, <%# current_user.name %>!
-              <%# if current_user %>
-                <%# link_to "View Profile", user_path(current_user), class: "c-link" %>
-              <%# end %>
-              <%# link_to("Logout", destroy_user_session_path, method: :delete, class: "c-link") %>
-            </li>
-          <%# else %>
-            <li class#"c-navigation__item c-navigation__item--push-right">
-
-              <%# link_to "Log In", new_user_session_path, class: "c-navigation__link" %> or <%# link_to "Sign Up", new_user_registration_path, class: "c-navigation__link" %>
-            </li>
-          <%# end %>
-        </ul>
-      </div> -->
     </header>
       <%= yield %>
     <footer>
-    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-          data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
-          aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-      <h2 class= "text-chicle text-light">Food Mapp</h2>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-        <ul class="navbar-nav mr-auto mt-2 mt-md-0">
-          <li class="nav-item active">
-            <a><%# link_to "Home", root_path, class: "nav-link" %>
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <%# if current_user %>
-          <li class= "nav-item">
-            <span class= "nav-link">Logged in as <%# current_user.email %></span>
-          </li>
-          <%# if current_user %>
-          <li class="nav-item">
-            <a><%# link_to "View Profile", user_path(current_user),class: "nav-link" %></a>
-          </li>
-          <%# end %>
-          <li class="nav-item">
-            <a><%# link_to("Logout", destroy_user_session_path, method: :delete, class: "nav-link") %></a>
-          </li>
-          <%# else %>
-          <li class="nav-item">
-            <a><%# link_to "Log In", new_user_session_path, class: "nav-link" %></a>
-          </li>
-          <%# end %>
-        </ul>
-      </nav>
-    </div> -->
     </footer>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -130,7 +86,7 @@
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"></script>
-    <!-- <script src="places.js"></script> -->
+    <!-- <script src="application.js"></script> -->
   </div>
   </body>
 </html>

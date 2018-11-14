@@ -42,4 +42,13 @@ class UsersController < ApplicationController
     flash[:success] = "User deleted"
     redirect_to places_path
   end
+
+private 
+  def user_params
+    params
+      .require(:user)
+      .permit(:city, locations_attributes: Location.attribute_cities.map(&:to_sym).push(:_destroy))
+      .permit(:state, locations_attributes: Location.attribute_states.map(&:to_sym).push(:_destroy))
+      .permit(:country, locations_attributes: Location.attribute_countries.map(&:to_sym).push(:_destroy))
+  end
 end
