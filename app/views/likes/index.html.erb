@@ -1,6 +1,3 @@
-<div class="show_map_container shadow-sm mt-5 ml-10 mr-20 mb-4 float-left">
-  <div id="show_map"></div>
-</div>
 <div class="card mb-3 border-0 mb-0">
   <div class="card-body mt-0">
     <h1 class="display-3 text-chicle"><%= @place.name %></h1>
@@ -29,29 +26,35 @@
       </ol>
   </div>
 </div>
+
 <script>
-  var place = <%== {lat: @place.latitude, lng: @place.longitude, name: @place.name, likes: @place.likes.count, address: @place.address }.to_json %>;
+  var likes = <%== @likes.map { |like| {lat: like.latitude, lng: like.longitude }}.to_json %>;
+
+  // var name = <%# @places.map { |place| {name: place.name}}.to_json %>;
   
   var map;
 
+  // var content = <%# @places.map { |place| {name: place.name, likes: place.likes.count}}.to_json %>;
+
   function initMap() {
-    map = new google.maps.Map(document.getElementById('show_map'), {
-      center: {lat: place.lat, lng: place.lng},
-      zoom: 18
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 0, lng: 0},
+      zoom: 2
     });
-    var name = <%== {name: @place.name}.to_json %>;
-    var content = <%== {name: @place.name}.to_json %>;
-    var position = new google.maps.LatLng(place.lat, place.lng);
-    var marker = new google.maps.Marker({
-      position: position,
-      map: map,
-      title: place.name
-    });
-    var infowindow = new google.maps.InfoWindow({
-          content: place.name + place.address + place.likes
-    });
-    marker.addListener('click', function() {
-        infowindow.open(map, marker);
+
+    places.forEach(function(place) {
+      var position = new google.maps.LatLng(like.lat, like.lng);
+      var marker = new google.maps.Marker({
+        position: position,
+        map: map,
+        title: name
+      });
+      // var infowindow = new google.maps.InfoWindow({
+      //     content: content
+      // });
+      // marker.addListener('click', function() {
+      //     infowindow.open(map, marker);
+      // });
     });
   }
 </script>

@@ -38,8 +38,8 @@
   </nav> -->
 </div>
 <script>
-  var places = <%== @places.map { |place| {lat: place.latitude, lng: place.longitude }}.to_json %>;
-  
+  var places = <%== @places.map { |place| {lat: place.latitude, lng: place.longitude, name: place.name, address: place.address, likes: place.likes.count, id: place.id }}.to_json %>;
+
   var map;
 
   function initMap() {
@@ -52,7 +52,15 @@
       var position = new google.maps.LatLng(place.lat, place.lng);
       var marker = new google.maps.Marker({
         position: position,
-        map: map
+        map: map,
+        title: place.name + place.likes
+      });
+      var infowindow = new google.maps.InfoWindow({
+          content:  place.name + 
+          place.address + place.likes
+      });
+      marker.addListener('click', function() {
+          infowindow.open(map, marker);
       });
     });
   }

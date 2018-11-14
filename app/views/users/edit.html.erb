@@ -1,20 +1,20 @@
 <div class= "jumbotron">
   <h1 class= "display-4 text-chicle text-primary">Step #2</h1>
   <h1 class= "display-5 text-chicle text-primary">Please Tell Us More About Yourself!</h1>
-  <div class="card mb-3 border-0 ml-0 mr-0 mb-0">
+  <div class="card mb-3 border-0 ml-0 mr-0 mb-0 w-50">
     <div class="card-body">
       <%= simple_form_for @user do |f| %>
         <%= f.input :name, label: "Your name:", class: "w-25" %><br><br>
-        Upload you profile picture: <%= f.file_field :avatar %><br><br>
+        <!-- <h4>Upload you profile picture: <%# f.file_field :avatar %></h4><br><br> -->
+        <h1 class= "display-5 text-chicle">Enter some locations where you have lived.</h1>
         <div class= "locations">
-          <%= f.simple_fields_for :locations do |builder| %>
-            <%= render "location_fields", f: builder%>
+          <%= f.simple_fields_for :locations do |location| %>
+            <%= render "location_fields", f: location %>
           <% end %>
         </div>
-        <a><%= link_to_add_association 'Add City', f.input, :cities, class: "btn, btn-primary", data: { association_insertion_node: ".locations", association_insertion_method: :append } %></a>
-        <a><%= link_to_add_association 'Add State', f.input, :states, class: "btn, btn-primary", data: { association_insertion_node: ".locations", association_insertion_method: :append } %></a>
-        <a><%= link_to_add_association 'Add Country', f.input, :countries, class: "btn, btn-primary", data: { association_insertion_node: ".locations", association_insertion_method: :append } %></a>
-        <a><%= f.button :submit, "Update your profile", class: "btn btn-dark" %></a>
+        <div>
+        <a><%= link_to_add_association 'Add Location', f, :locations, class: "btn btn-lg btn-primay w-25", data: { association_insertion_node: ".locations", association_insertion_method: :append } %></a></div><br>
+        <a><%= f.button :submit, "Update your profile", class: "btn btn-danger" %></a>
       <% end %>
     </div>
   </div>
