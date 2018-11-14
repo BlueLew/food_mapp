@@ -1,5 +1,6 @@
 <div class="show_map_container shadow-sm mt-5 ml-10 mr-20 mb-4 float-left">
   <div id="show_map"></div>
+  <div id="likes_map"></div>
 </div>
 <div class="card mb-3 border-0 mb-0">
   <div class="card-body mt-0">
@@ -31,10 +32,13 @@
 </div>
 <script>
   var place = <%== {lat: @place.latitude, lng: @place.longitude, name: @place.name, likes: @place.likes.count, address: @place.address }.to_json %>;
-  
+  var likeLocations = <%== @place.locations.map {|location| {lat: location.latitude, lng: location.longitude, address: location.address }}.to_json %>;
+
   var map;
+  var likesMap;
 
   function initMap() {
+    // place's map
     map = new google.maps.Map(document.getElementById('show_map'), {
       center: {lat: place.lat, lng: place.lng},
       zoom: 18
@@ -53,6 +57,28 @@
     marker.addListener('click', function() {
         infowindow.open(map, marker);
     });
+
+    // likes map
+    likesMap = new google.maps.Map(document.getElementById('likes_map'), {
+      zoom: 2,
+      center: {lat: place.lat, lng: place.lng}
+    });
+
+    likeLocations.forEach(function(likeLocation){
+      var position = new google.maps.LatLng(likeLocation.lat, likeLocation.lng);
+      var marker = new google.maps.Marker({
+        position: position,
+        map: likesMap,
+        title: likeLocation.name
+      });
+    })
+
+    // var infowindow = new google.maps.InfoWindow({
+    //       content: place.name + place.address + place.likes
+    // });
+    // marker.addListener('click', function() {
+    //     infowindow.open(map, marker);
+    // });
   }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUbWRtQWZ3pC8radEZuKVryQ8A2dlayQw&callback=initMap" async defer></script>
