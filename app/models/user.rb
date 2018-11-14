@@ -12,6 +12,5 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
 
-  accepts_nested_attributes_for :locations, 
-    reject_if: proc { |att| att['description'].blank? }
+  accepts_nested_attributes_for :locations
 end

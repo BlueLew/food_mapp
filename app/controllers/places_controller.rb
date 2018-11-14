@@ -21,6 +21,14 @@ class PlacesController < ApplicationController
     @likes_by_countries = likes_by(:country)
   end
 
+  def likes
+    @place = Place.find(params[:id])
+    @likes = @place.likes
+    @likes_by_cities = likes_by(:city)
+    @likes_by_states = likes_by(:state)
+    @likes_by_countries = likes_by(:country)
+  end
+
   def update
   end
 
