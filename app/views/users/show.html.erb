@@ -1,5 +1,5 @@
 <div class= "container">
-  <h1 class= "display-2 text-chicle text-center mt-5 ml-0"><%= current_user.name %>'s Profile Page</h1>
+  <h1 class= "display-4 text-chicle mt-5 ml-0"><%= current_user.name %>'s Profile Page</h1>
   <div class="card mb-3 border-0 w-50 ml-0 mr-0 mb-0 float-left">
     <div class="card-body">
       <% if current_user.avatar.attached? %>
@@ -13,15 +13,15 @@
   </div>
   <div class="card mb-3 border-0 w-50 ml-0 mr-0 mb-0 float-right">
     <div class="card-body mt-0">
-      <h1><span class= "display-4 text-chicle">User Name:</span> <%= current_user.name %></h1>
-      <h1><span class= "display-4 text-chicle"> Email Address:</span> <%= current_user.email %></h1>
-      <h1 class= " display-4 text-chicle">Locations where you lived</h1>
+      <h1><span class= "text-chicle">User Name:</span> <%= current_user.name %></h1>
+      <h1><span class= "text-chicle"> Email Address:</span> <%= current_user.email %></h1>
+      <h1 class= "text-chicle">Locations where you've lived</h1>
         <ul>
         <% @locations.each do |location| %>
           <h4><li><%= location.city %>, <%= location.state %> <%= location.country %></li></h4>
         <% end %>
         </ul>
-      <h1 class= "display-4 text-chicle">Restaurants You Liked</h1>
+      <h1 class= "text-chicle">Restaurants You've Liked</h1>
         <ul>
         <% @places.each do |place| %>
           <h4><li><%= place.name %></li></h4>
