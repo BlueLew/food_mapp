@@ -14,18 +14,23 @@
  *= require_self
  */
 #map {
-  width: 650px;
+  width: 100%;
   height: 700px;
 }
 
 #show_map {
-  width: 800px;
-  height: 600px;
+  width: 50%;
+  height: 180px;
+  position: absolute !important;
+  margin-top: -180px;
+  z-index: 1000;
+  border-top: 2px solid #acacac;
+  border-right: 2px solid #acacac;
 }
 
 #likes_map {
-  width: 800px;
-  height: 600px;
+  width: 100%;
+  height: 500px;
 }
 
 .map_container {

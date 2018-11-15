@@ -1,41 +1,26 @@
 <!-- <hr class="my-4"> -->
-<div class="map_container w-50 h-50 ml-0 mr-0 mb-0 mt-0 position-fixed">
-  <div id="map"></div>
-</div>
-<div class="card border-0 mb-3 w-50 ml-50 mr-0 mb-0 mt-0 float-right">
-  <div class="card-body">
-   <% @places.each do |place| %>
-    <h1 class="display-5 text-chicle"><%= place.name %></h1>
-    <h5><%= place.address %></h5>
-    <h5><%= place.phone_number %></h5>
-    <h5>Category: <%= place.category %></h5>
-    <h5 class= "text-primary"><%= place.likes.count %><%= (place.likes.count) == 1 ? ' Like' : ' Likes'%></h5>
-    <h5> <%# place.locations %></h5>
-    <%# image_tag place.image.variant(resize: "200x300") %>
-    <a><%= link_to "More Info", place_path(place), class: "btn btn-danger btn-lg"%></a><br><br><br>
-    <% end %>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="map_container w-50 h-50 ml-0 mr-0 mb-0 mt-0 position-fixed">
+      <div id="map"></div>
+    </div>
   </div>
-  <!-- <nav aria-label="...">
-    <ul class="pagination">
-      <li class="page-item disabled">
-        <span class="page-link">Previous</span>
-      </li>
-      <li class="page-item active">
-        <span class="page-link">1
-          <span class="sr-only">(current)</span>
-        </span>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#!">2</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#!">3</a>  
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#!">Next</a>
-      </li>
-    </ul>
-  </nav> -->
+  <div class="col-sm-6">
+    <div class="card border-0 clearfix m-0">
+      <div class="card-body mt-0">
+       <% @places.each do |place| %>
+        <h1 class="display-5 text-chicle"><%= place.name %></h1>
+        <h5><%= place.address %></h5>
+        <h5><%= place.phone_number %></h5>
+        <h5>Category: <%= place.category %></h5>
+        <h5 class= "text-primary"><%= place.likes.count %><%= (place.likes.count) == 1 ? ' Like' : ' Likes'%></h5>
+        <h5> <%# place.locations %></h5>
+        <%# image_tag place.image.variant(resize: "200x300") %>
+        <a><%= link_to "More Info", place_path(place), class: "btn btn-danger btn-lg"%></a><br><br><br>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
 <script>
   var places = <%== @places.map { |place| {lat: place.latitude, lng: place.longitude, name: place.name, address: place.address, likes: place.likes.count, id: place.id }}.to_json %>;
@@ -45,7 +30,7 @@
   function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 34.8526, lng: -82.3940},
-      zoom: 10
+      zoom: 11
     });
 
     places.forEach(function(place) {

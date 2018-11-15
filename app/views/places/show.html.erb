@@ -1,5 +1,69 @@
-<div class="container">
-  <div id="carouselIndicators" class="carousel slide w-75 float-left shadow position-fixed" data-ride="carousel">
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-sm-6">
+      <h2 class="text-chicle display-3"><%= @place.name %></h2>
+      <div id="likes_map"></div>
+      <div id="show_map"></div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card clearfix mt-5 mb-5">
+        <div class="card-body mt-0">
+          <a><%= button_to 'Like', place_likes_path(@place), method: :post, class: "btn btn-success btn-lg w-25 mb-2 font-weight-bold" %></a>
+          <h6><%= @place.address %></h6>
+          <h6><%= @place.phone_number %></h6>
+          <h6>Category: <%= @place.category %></h6>
+          <h5 class= "text-primary"><%= @place.likes.count %> <%= likes_unit @place.likes.count %></h5>
+        </div>
+      </div>
+      <div class="card clearfix mt-5 mb-5">
+        <div class="card-header">
+          <h2 class="text-chicle display-5">Liked most by users from</h2>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="">
+              <h2 class="text-chicle display-6">City</h2>
+                <ul class="list-unstyled">
+                  <% @likes_by_cities.each do |group| %>
+                    <h6><li><%= "#{group[:name]} = #{group[:likes]} #{likes_unit(group[:likes])}" %> </li></h6>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="">
+              <h2 class="text-chicle display-6">State</h2>
+                <ul class="list-unstyled">
+                  <% @likes_by_states.each do |group| %>
+                    <h6><li><%= "#{group[:name]} = #{group[:likes]} #{likes_unit(group[:likes])}" %></li></h6>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="">
+              <h2 class="text-chicle display-6">Country</h2>
+                <ul class="list-unstyled">
+                  <% @likes_by_countries.each do |group| %>
+                    <h6><li><%= "#{group[:name]} = #{group[:likes]} #{likes_unit(group[:likes])}" %></li></h6>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="show_map_container shadow-sm mt-5 ml-10 mr-20 mb-4 float-left">
+    <div id="show_map"></div>
+    <div id="likes_map"></div>
+  </div> -->
+  
+
+
+  <!-- <div id="carouselIndicators" class="carousel slide w-50 float-left" data-ride="carousel">
     <ol class="carousel-indicators">
       <li data-target="#carouselIndicators" data-slide-to="0" class="active"></li>
       <li data-target="#carouselIndicators" data-slide-to="1"></li>
@@ -11,7 +75,7 @@
       <div class="carousel-item">
         <div id="likes_map" class="d-block w-100"></div>
           <div class="carousel-caption d-none d-md-block">
-            <h4 class= "text-chicle text-dark">Locations associated with Likes</h4>
+            <h5 class= "text-chicle text-primary">Users from these locations have liked this restaurant!</h5>
           </div>
       </div>
     </div>
@@ -23,40 +87,8 @@
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="sr-only">Next</span>
     </a>
-  </div>
-</div>
-  <!-- <div class="show_map_container shadow-sm mt-5 ml-10 mr-20 mb-4 float-left">
-    <div id="show_map"></div>
-    <div id="likes_map"></div>
   </div> -->
-</div>
-<div class="card border-0 float-right w-25">
-  <div class="card-body mt-0">
-    <h1 class="display-5 text-chicle"><%= @place.name %></h1>
-    <h5><%= @place.address %></h5>
-    <h5><%= @place.phone_number %></h5>
-    <h5>Category: <%= @place.category %></h5>
-    <h5 class= "text-primary"><%= @place.likes.count %><%= (@place.likes.count) == 1 ? ' Like' : ' Likes'%></h5>
-    <a><%= button_to 'Like', place_likes_path(@place), method: :post, class: "btn btn-success btn-lg w-50 font-weight-bold" %></a><br><br>
-    <h1 class="display-5 text-chicle">Likes by Cities</h1>
-      <ol>
-        <% @likes_by_cities.each do |group| %>
-          <h5><li><%= "#{group[:name]} = #{group[:likes]} Likes" %></li></h5>
-        <% end %>
-      </ol>
-    <h1 class="display-5 text-chicle">Likes by States</h1>
-      <ol>
-        <% @likes_by_states.each do |group| %>
-          <h5><li><%= "#{group[:name]} = #{group[:likes]} Likes" %></li></h5>
-        <% end %>
-      </ol>
-    <h1 class="display-5 text-chicle">Likes by Countries</h1>
-      <ol>
-        <% @likes_by_countries.each do |group| %>
-          <h5><li><%= "#{group[:name]} = #{group[:likes]} Likes" %></li></h5>
-        <% end %>
-      </ol>
-  </div>
+
 </div>
 <script>
   var place = <%== {lat: @place.latitude, lng: @place.longitude, name: @place.name, likes: @place.likes.count, address: @place.address }.to_json %>;
@@ -69,7 +101,7 @@
     // place's map
     map = new google.maps.Map(document.getElementById('show_map'), {
       center: {lat: place.lat, lng: place.lng},
-      zoom: 18
+      zoom: 17
     });
     var name = <%== {name: @place.name}.to_json %>;
     var content = <%== {name: @place.name}.to_json %>;
@@ -88,16 +120,24 @@
 
     // likes map
     likesMap = new google.maps.Map(document.getElementById('likes_map'), {
-      zoom: 1.60,
+      zoom: 4,
       center: {lat: place.lat, lng: place.lng}
     });
+
+    var icon = {
+        url: "<%= asset_url 'like-icon.png' %>", // url
+        scaledSize: new google.maps.Size(30, 30), // scaled size
+        origin: new google.maps.Point(0,0), // origin
+        anchor: new google.maps.Point(0, 0) // anchor
+    };
 
     likeLocations.forEach(function(likeLocation){
       var position = new google.maps.LatLng(likeLocation.lat, likeLocation.lng);
       var marker = new google.maps.Marker({
         position: position,
         map: likesMap,
-        title: likeLocation.name
+        title: likeLocation.name,
+        icon: icon
       });
     })
 
