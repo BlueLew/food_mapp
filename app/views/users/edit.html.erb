@@ -1,12 +1,11 @@
 <div class= "jumbotron">
   <h1 class= "display-4 text-chicle text-primary">Step #2</h1>
-  <h1 class= "display-5 text-chicle text-primary">Please Tell Us More About Yourself!</h1>
-  <div class="card mb-3 border-0 ml-0 mr-0 mb-0 w-50">
+  <h1 class= "display-5 text-chicle text-primary">Please enter a user name and locations where you have lived!</h1>
+  <div class="card mb-3 border-0 ml-0 mr-0 mb-0 w-25 float-left">
     <div class="card-body">
       <%= simple_form_for @user do |f| %>
         <%= f.input :name, label: "Your name:", class: "w-25" %><br><br>
         <!-- <h4>Upload you profile picture: <%# f.file_field :avatar %></h4><br><br> -->
-        <h1 class= "display-5 text-chicle">Enter some locations where you have lived.</h1>
         <div class= "locations">
           <%= f.simple_fields_for :locations do |location| %>
             <%= render "location_fields", f: location %>
@@ -16,6 +15,11 @@
         <a><%= link_to_add_association 'Add Location', f, :locations, class: "btn btn-lg btn-primay w-25", data: { association_insertion_node: ".locations", association_insertion_method: :append } %></a></div><br>
         <a><%= f.button :submit, "Update your profile", class: "btn btn-danger" %></a>
       <% end %>
+    </div>
+  </div>
+  <div class= "card border-0 float-right shadow mt-50">
+    <div class= "card-body">
+      <%= image_tag "christine-roy-343235-unsplash.jpg", size: "700x400" %>
     </div>
   </div>
 </div>
