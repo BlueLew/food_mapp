@@ -1,8 +1,8 @@
 <div class= "nested-fields">
-  <div>
-    <%= f.input :city %>
-    <%= f.input :state %>
-    <%= f.input :country %>
+  <div class= "form-inline border-dark">
+    <%= f.input :city, label: 'City:  ' %>
+    <%= f.input :state, label: 'State: ' %>
+    <%= f.input :country, label: 'County: ' %>
     <%= link_to_remove_association "Remove Location", f %>
   </div>
 </div>
