@@ -11,22 +11,22 @@ ActiveRecord::Base.transaction do
   end
 
   locations = [
-    { city: "Greenville", state: "SC", country: "USA" },
-    { city: "Chicago", state: "IL", country: "USA" },
-    { city: "Miami", state: "FL", country: "USA" },
+    { city: "Greenville", state: "SC", country: "United States" },
+    { city: "Chicago", state: "IL", country: "United States" },
+    { city: "Miami", state: "FL", country: "United States" },
     { city: "Tokyo", state: "", country: "Japan" },
-    { city: "Dallas", state: "TX", country: "USA" },
-    { city: "Boston", state: "MA", country: "USA" },
-    { city: "New York", state: "NY", country: "USA" },
+    { city: "Dallas", state: "TX", country: "United States" },
+    { city: "Boston", state: "MA", country: "United States" },
+    { city: "New York", state: "NY", country: "United States" },
     { city: "Munich", state: "", country: "Germany" },
     { city: "Barcelona", state: "", country: "Spain" },
     { city: "London", state: "", country: "England" },
-    { city: "Nashville", state: "TN", country: "USA" },
-    { city: "Dallas", state: "TX", country: "USA" },
-    { city: "Portland", state: "OR", country: "USA" }
+    { city: "Nashville", state: "TN", country: "United States" },
+    { city: "Dallas", state: "TX", country: "United States" },
+    { city: "Portland", state: "OR", country: "United States" }
   ]
 
-  50.times do
+  100.times do
     user = User.create({
       email: Faker::Internet.email,
       name: Faker::Name.name,
@@ -35,12 +35,12 @@ ActiveRecord::Base.transaction do
 
     3.times do
       location = locations.sample
-      Location.create(
+      new_location = Location.create(
         city: location[:city],
         state: location[:state],
-        country: location[:country],
-        user: user
+        country: location[:country]
       )
+      user.locations << new_location
     end
 
     10.times do
