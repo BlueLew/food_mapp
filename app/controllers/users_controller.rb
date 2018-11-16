@@ -17,10 +17,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     @locations = @user.locations
-    @user.name = params[:user][:name]
-    @user.avatar.attach(params[:user][:avatar])
-    @locations = params[:locations][:city], 
-      [:locations][:state], [:locations][:country]
+    @user.update_attributes(user_params)
 
     if current_user.save
       redirect_to user_path
@@ -36,10 +33,16 @@ class UsersController < ApplicationController
     redirect_to places_path
   end
 
-  def destory
+  def destroy
     @user = current_user
     @user.destroy
     flash[:success] = "User deleted"
     redirect_to places_path
+  end
+
+private 
+  def user_params
+    params
+      .require(:user).permit(:name, locations_attributes: [:city, :state, :country])
   end
 end

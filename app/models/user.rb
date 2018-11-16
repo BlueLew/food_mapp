@@ -11,4 +11,6 @@ class User < ApplicationRecord
   has_many :locations, through: :user_locations
 
   has_one_attached :avatar
+
+  accepts_nested_attributes_for :locations
 end

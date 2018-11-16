@@ -5,7 +5,7 @@ class PlacesController < ApplicationController
     if params[:search].present?
       @places = Place.perform_search(params[:search])
     else
-      @places = Place.all
+      @places = Place.all.order(name: :asc)
     end
     @place = Place.new
   end
@@ -16,6 +16,14 @@ class PlacesController < ApplicationController
     @users = User.all
     @locations = @users.map(&:locations).flatten
     #@frequency = location_frequency(@locations)
+    @likes_by_cities = likes_by(:city)
+    @likes_by_states = likes_by(:state)
+    @likes_by_countries = likes_by(:country)
+  end
+
+  def likes
+    @place = Place.find(params[:id])
+    @likes = @place.likes
     @likes_by_cities = likes_by(:city)
     @likes_by_states = likes_by(:state)
     @likes_by_countries = likes_by(:country)

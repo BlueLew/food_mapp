@@ -1,81 +1,30 @@
-<div class="jumbotron">
-  <h1 class="display-1 text-chicle">Food Mapp</h1>
-    <p class="lead">Food Mapp puts you and your favorite food spots on the map!</p>
-  <hr class="my-4">
-  <div class="map_container shadow-lg mr-0 mb-4 float-left">
-    <div id="map"></div>
-  </div>
-  <div class="card mb-3 border-0 w-50 ml-0 mr-0 float-right">
-    <div class="card-body mt-0">
-      <h1 class="display-3 text-chicle">Search for Restaurants</h1>
-      <form class= "form-inline">
-        <label class="sr-only" for="inlineFormInputGroup">Restaurant Search</label>
-        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-          <%= form_tag(places_path, method: "get") do %>
-            <%= text_field_tag :search, nil, placeholder: "Search by name or category and press Enter", class: "form-control w-50 mb-3 pb-2" %>
-            <%= submit_tag "", style: "display: none;" %>
-            <button type="submit" class="btn btn-dark ml-2"><%= submit_tag "", style: "display: none;" %>Search</button>
-          <% end %>
-          <a><%= link_to "Add a Restaurant to Food Mapp!", new_place_path, class: "btn btn-danger btn-lg" %></a>
-        </div>
-      </form>
+<!-- <hr class="my-4"> -->
+<div class="row">
+  <div class="col-sm-6">
+    <div class="map_container w-50 ml-0 mr-0 mb-0 mt-0 position-fixed">
+      <div id="map"></div>
     </div>
-    <div class="card-body">
-      <% @places.each do |place| %>
-      <h1 class="display-4 text-chicle"><%= place.name %></h1>
-      <h4><%= place.address %></h4>
-      <h4><%= place.phone_number %></h4>
-      <h4>Category: <%= place.category %></h4>
-      <h4 class= "text-primary"><%= place.likes.count %><%= (place.likes.count) == 1 ? ' Like' : ' Likes'%></h4>
-      <h4> <%# place.locations %></h4>
-      <%# image_tag place.image.variant(resize: "200x300") %>
-      <a><%= link_to "More Info", place_path(place), class: "btn btn-danger btn-lg"%></a><br><br>
-      <% end %>
-    </div>
-    <nav aria-label="...">
-      <ul class="pagination">
-        <li class="page-item disabled">
-          <span class="page-link">Previous</span>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#!">1</a>
-        </li>
-        <li class="page-item active">
-          <span class="page-link">
-            2
-            <span class="sr-only">(current)</span>
-          </span>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#!">3</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#!">Next</a>
-        </li>
-      </ul>
-    </nav>
   </div>
-  
-
-  <%# @places.each do |place| %>
-    <!-- <div class="c-card u-margin-bottom-small">
-      <div class="c-section">
-        <h2 class="c-title"><%# place.name %></h2>
-        <h3 class="c-title c-title--tiny"><%# place.address %></h3>
-        <h4 class="c-title c-title--tiny"><%# place.phone_number %></h4>
-        <h4 class="c-title c-title--tiny">Type of Restaurant: <%# place.category %></h4>
-        <h4 class="c-title c-title--tiny"># of Likes = <%# place.likes.count %></h4>
-        <h4 class="c-title c-title--tiny"> <%# place.locations %></h4>
+  <div class="col-sm-6">
+    <div class="card border-0 clearfix m-0">
+      <div class="card-body mt-0">
+       <% @places.each do |place| %>
+        <h1 class="display-5 text-chicle"><%= place.name %></h1>
+        <h5><%= place.address %></h5>
+        <h5><%= place.phone_number %></h5>
+        <h5>Category: <%= place.category %></h5>
+        <h5 class= "text-primary"><%= place.likes.count %><%= (place.likes.count) == 1 ? ' Like' : ' Likes'%></h5>
+        <h5> <%# place.locations %></h5>
         <%# image_tag place.image.variant(resize: "200x300") %>
-        <button><%# link_to "More Info", place_path(place), class: "c-button c-button--small c-button--focal"%></button>
+        <a><%= link_to "More Info", place_path(place), class: "btn btn-danger btn-lg"%></a><br><br><br>
+        <% end %>
       </div>
-    </div> -->
-  <%# end %>
-<!-- </div> -->
-
+    </div>
+  </div>
+</div>
 <script>
-  var places = <%== @places.map { |place| {lat: place.latitude, lng: place.longitude }}.to_json %>;
-  
+  var places = <%== @places.map { |place| {lat: place.latitude, lng: place.longitude, name: place.name, address: place.address, likes: place.likes.count, id: place.id }}.to_json %>;
+
   var map;
 
   function initMap() {
@@ -88,7 +37,17 @@
       var position = new google.maps.LatLng(place.lat, place.lng);
       var marker = new google.maps.Marker({
         position: position,
-        map: map
+        map: map,
+        title: place.name
+      });
+
+       var content = place.name + place.likes
+
+      var infowindow = new google.maps.InfoWindow({
+          content: content
+      });
+      marker.addListener('click', function() {
+          infowindow.open(map, marker);
       });
     });
   }
