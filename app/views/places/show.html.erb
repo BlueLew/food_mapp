@@ -1,7 +1,7 @@
 <div class="container mt-4">
   <div class="row">
     <div class="col-sm-6">
-      <h2 class="text-chicle display-3"><%= @place.name %></h2>
+      <h2 class="text-chicle display-4"><%= @place.name %></h2>
       <div id="likes_map"></div>
       <div id="show_map"></div>
     </div>
@@ -101,7 +101,7 @@
     // place's map
     map = new google.maps.Map(document.getElementById('show_map'), {
       center: {lat: place.lat, lng: place.lng},
-      zoom: 17
+      zoom: 16
     });
     var name = <%== {name: @place.name}.to_json %>;
     var content = <%== {name: @place.name}.to_json %>;
