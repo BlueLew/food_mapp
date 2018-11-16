@@ -11,19 +11,19 @@ ActiveRecord::Base.transaction do
   end
 
   locations = [
-    { city: "Greenville", state: "SC", country: "United States" },
-    { city: "Chicago", state: "IL", country: "United States" },
-    { city: "Miami", state: "FL", country: "United States" },
-    { city: "Tokyo", state: "", country: "Japan" },
-    { city: "Dallas", state: "TX", country: "United States" },
-    { city: "Boston", state: "MA", country: "United States" },
-    { city: "New York", state: "NY", country: "United States" },
-    { city: "Munich", state: "", country: "Germany" },
-    { city: "Barcelona", state: "", country: "Spain" },
-    { city: "London", state: "", country: "England" },
-    { city: "Nashville", state: "TN", country: "United States" },
-    { city: "Dallas", state: "TX", country: "United States" },
-    { city: "Portland", state: "OR", country: "United States" }
+    { city: "Greenville", state: "SC", country: "US" },
+    { city: "Chicago", state: "IL", country: "US" },
+    { city: "Miami", state: "FL", country: "US" },
+    { city: "Tokyo", state: "", country: "JP" },
+    { city: "Dallas", state: "TX", country: "US" },
+    { city: "Boston", state: "MA", country: "US" },
+    { city: "New York", state: "NY", country: "US" },
+    { city: "Munich", state: "", country: "DE" },
+    { city: "Barcelona", state: "", country: "ES" },
+    { city: "London", state: "", country: "GB" },
+    { city: "Nashville", state: "TN", country: "US" },
+    { city: "Dallas", state: "TX", country: "US" },
+    { city: "Portland", state: "OR", country: "US" }
   ]
 
   100.times do

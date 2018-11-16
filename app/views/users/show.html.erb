@@ -4,8 +4,8 @@
       <div class="card border-0 clearfix m-0">
         <div class="card-body mt-0">
           <h1 class= "display-4 text-chicle text-primary ml-0"><%= current_user.name %>'s Profile Page</h1>
-          <h1 class= "display-5 text-chicle">User Name: <%= current_user.name %></h1>
-          <h1 class= "display-5 text-chicle">Email Address: <%= current_user.email %></h1>
+          <h2 class= "display-6">User Name: <%= current_user.name %></h2>
+          <h2 class= "display-6">Email Address: <%= current_user.email %></h2>
           <% if current_user.avatar.attached? %>
             <h4 class= "nav_avatar"><%= image_tag current_user.avatar.variant(resize: "150 x 200"), class: "rounded-circle" %></h4>
             <a><%= link_to "Download Photo", rails_blob_path(current_user.avatar, disposition: "attachment"), class: "btn btn-dark" %></a>
