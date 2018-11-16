@@ -1,63 +1,151 @@
-<div class="jumbotron">
-  <div class="show_map_container shadow-lg mr-0 mb-4 float-left">
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-sm-6">
+      <h2 class="text-chicle display-4"><%= @place.name %></h2>
+      <div id="likes_map"></div>
+      <div id="show_map"></div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card clearfix mt-5 mb-5">
+        <div class="card-body mt-0">
+          <a><%= button_to 'Like', place_likes_path(@place), method: :post, class: "btn btn-success btn-lg w-25 mb-2 font-weight-bold" %></a>
+          <h6><%= @place.address %></h6>
+          <h6><%= @place.phone_number %></h6>
+          <h6>Category: <%= @place.category %></h6>
+          <h5 class= "text-primary"><%= @place.likes.count %> <%= likes_unit @place.likes.count %></h5>
+        </div>
+      </div>
+      <div class="card clearfix mt-5 mb-5">
+        <div class="card-header">
+          <h2 class="text-chicle display-5">Liked most by users from</h2>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="">
+              <h2 class="text-chicle display-6">City</h2>
+                <ul class="list-unstyled">
+                  <% @likes_by_cities.each do |group| %>
+                    <h6><li><%= "#{group[:name]} = #{group[:likes]} #{likes_unit(group[:likes])}" %> </li></h6>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="">
+              <h2 class="text-chicle display-6">State</h2>
+                <ul class="list-unstyled">
+                  <% @likes_by_states.each do |group| %>
+                    <h6><li><%= "#{group[:name]} = #{group[:likes]} #{likes_unit(group[:likes])}" %></li></h6>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="">
+              <h2 class="text-chicle display-6">Country</h2>
+                <ul class="list-unstyled">
+                  <% @likes_by_countries.each do |group| %>
+                    <h6><li><%= "#{group[:name]} = #{group[:likes]} #{likes_unit(group[:likes])}" %></li></h6>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="show_map_container shadow-sm mt-5 ml-10 mr-20 mb-4 float-left">
     <div id="show_map"></div>
-  </div>
-  <div class="card mb-3 border-0 w-50 ml-0 mr-0 mb-0 float-right">
-    <div class="card-body mt-0">
-      <h1 class="display-2 text-chicle"><%= @place.name %></h1>
-      <h3><%= @place.address %></h3>
-      <h3><%= @place.phone_number %></h3>
-      <h3>Category: <%= @place.category %></h3>
-      <h3 class= "text-primary"><%= @place.likes.count %><%= (@place.likes.count) == 1 ? ' Like' : ' Likes'%></h3>
-      <a><%= button_to 'Like', place_likes_path(@place), method: :post, class: "btn btn-success btn-lg w-50" %></a>
+    <div id="likes_map"></div>
+  </div> -->
+  
+
+
+  <!-- <div id="carouselIndicators" class="carousel slide w-50 float-left" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselIndicators" data-slide-to="1"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div id="show_map" class="d-block w-100"></div>
+      </div>
+      <div class="carousel-item">
+        <div id="likes_map" class="d-block w-100"></div>
+          <div class="carousel-caption d-none d-md-block">
+            <h5 class= "text-chicle text-primary">Users from these locations have liked this restaurant!</h5>
+          </div>
+      </div>
     </div>
-  </div>
-  <div class="card mb-3 border-0 w-50 mt-0 ml-0 mr-0 float-right">
-    <div class="card-body mt-0 ml-0 mr-0">
-      <h1 class="display-4 text-chicle">Likes by Cities</h1>
-        <ol>
-          <% @likes_by_cities.each do |group| %>
-            <h4><li><%= "#{group[:name]} = #{group[:likes]} Likes" %></li></h4>
-          <% end %>
-        </ol>
-      <h1 class="display-4 text-chicle">Likes by States</h1>
-        <ol>
-          <% @likes_by_states.each do |group| %>
-            <h4><li><%= "#{group[:name]} = #{group[:likes]} Likes" %></li></h4>
-          <% end %>
-        </ol>
-      <h1 class="display-4 text-chicle">Likes by Countries</h1>
-        <ol>
-          <% @likes_by_countries.each do |group| %>
-            <h4><li><%= "#{group[:name]} = #{group[:likes]} Likes" %></li></h4>
-          <% end %>
-        </ol>
-    </div>
-  </div>
+    <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div> -->
+
 </div>
 <script>
-  var place = <%== {lat: @place.latitude, lng: @place.longitude }.to_json %>;
-  
+  var place = <%== {lat: @place.latitude, lng: @place.longitude, name: @place.name, likes: @place.likes.count, address: @place.address }.to_json %>;
+  var likeLocations = <%== @place.locations.map {|location| {lat: location.latitude, lng: location.longitude, address: location.address }}.to_json %>;
+
   var map;
+  var likesMap;
 
   function initMap() {
+    // place's map
     map = new google.maps.Map(document.getElementById('show_map'), {
-      center: {lat: place.latitude, lng: place.longitude},
-      zoom: 20
+      center: {lat: place.lat, lng: place.lng},
+      zoom: 16
     });
-
+    var name = <%== {name: @place.name}.to_json %>;
+    var content = <%== {name: @place.name}.to_json %>;
     var position = new google.maps.LatLng(place.lat, place.lng);
     var marker = new google.maps.Marker({
       position: position,
-      map: map
+      map: map,
+      title: place.name
+    });
+    var infowindow = new google.maps.InfoWindow({
+          content: place.name + place.address + place.likes
+    });
+    marker.addListener('click', function() {
+        infowindow.open(map, marker);
     });
 
-    // places.forEach(function(place) {
-    //   var position = new google.maps.LatLng(place.lat, place.lng);
-    //   var marker = new google.maps.Marker({
-    //     position: position,
-    //     map: map
-    //   });
+    // likes map
+    likesMap = new google.maps.Map(document.getElementById('likes_map'), {
+      zoom: 3.5,
+      center: {lat: place.lat, lng: place.lng}
+    });
+
+    var icon = {
+        url: "<%= asset_url 'like-icon.png' %>", // url
+        scaledSize: new google.maps.Size(30, 30), // scaled size
+        origin: new google.maps.Point(0,0), // origin
+        anchor: new google.maps.Point(0, 0) // anchor
+    };
+
+    likeLocations.forEach(function(likeLocation){
+      var position = new google.maps.LatLng(likeLocation.lat, likeLocation.lng);
+      var marker = new google.maps.Marker({
+        position: position,
+        map: likesMap,
+        title: likeLocation.name,
+        icon: icon
+      });
+    })
+
+    // var infowindow = new google.maps.InfoWindow({
+    //       content: place.name + place.address + place.likes
+    // });
+    // marker.addListener('click', function() {
+    //     infowindow.open(map, marker);
     // });
   }
 </script>

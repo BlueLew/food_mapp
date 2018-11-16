@@ -1,12 +1,25 @@
-<div class= "jumbotron">
-  <h1 class="display-2 text-chicle ml-4 mt-4">Add a Restaurant to Food Mapp</h1>
-  <div class= "card-body w-50">
-    <%= simple_form_for @place do |f| %>
-      <%= f.input :name, label: "Name of Restaurant:" %>
-      <%= f.input :address, label: "Restaurant's Address:", placeholder: "123 Street, City, State Zip" %>
-      <%= f.input :phone_number, label: "Phone Number:", placeholder: "(555) 555-5555" %>
-      <%= f.input :category, label: "Category:", placeholder: "American, Casual, etc." %>
-      <a><%= f.button :submit, label: "Add Restaurant", class: "btn btn-danger btn-lg w-50" %></a>
-    <% end %>
+<div class= "container">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class= "card border-0">
+        <div class= "card-body mt-4">
+          <h1 class="text-chicle">Add a Restaurant to Food Mapp</h1>
+          <%= simple_form_for @place do |f| %>
+            <%= f.input :name, label: "Name of Restaurant:" %>
+            <%= f.input :address, label: "Restaurant's Address:", placeholder: "123 Street, City, State Zip" %>
+            <%= f.input :phone_number, label: "Phone Number:", placeholder: "(555) 555-5555" %>
+            <%= f.input :category, label: "Category:", placeholder: "American, Casual, etc." %>
+            <a><%= f.button :submit, label: "Add Restaurant", class: "btn btn-danger btn-lg w-50" %></a>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class= "card border-0 shadow mt-4">
+        <div class= "card-body">
+          <%= image_tag "jakub-kapusnak-296881-unsplash.jpg", size: "515x400" %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,32 +1,39 @@
-<div class= "jumbotron">
-  <h1 class= "display-2 text-chicle"><%= current_user.name %>'s Profile Page</h1>
-  <div class="card mb-3 border-0 w-50 ml-0 mr-0 mb-0 float-left">
-    <div class="card-body">
-      <% if current_user.avatar.attached? %>
-        <h4 class= "nav_avatar"><%= image_tag current_user.avatar.variant(resize: "150 x 200"), class: "rounded-circle" %></h4>
-        <a><%= link_to "Download Photo", rails_blob_path(current_user.avatar, disposition: "attachment"), class: "btn btn-dark" %></a>
-      <% end %>
-      <a><%= link_to "Edit Profile", edit_user_path(current_user), class: "btn btn-dark" %></a>
-      <a><%= link_to "Change Email or Password", edit_user_registration_path(current_user), class: "btn btn-dark" %></a>
-      <a><%= link_to 'Delete Profile', registration_path(current_user), method: :destroy, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"%></a><br><br>
+<div class= "container">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card border-0 clearfix m-0">
+        <div class="card-body mt-0">
+          <h1 class= "display-4 text-chicle text-primary ml-0"><%= current_user.name %>'s Profile Page</h1>
+          <h2 class= "display-6">User Name: <%= current_user.name %></h2>
+          <h2 class= "display-6">Email Address: <%= current_user.email %></h2>
+          <% if current_user.avatar.attached? %>
+            <h4 class= "nav_avatar"><%= image_tag current_user.avatar.variant(resize: "150 x 200"), class: "rounded-circle" %></h4>
+            <a><%= link_to "Download Photo", rails_blob_path(current_user.avatar, disposition: "attachment"), class: "btn btn-dark" %></a>
+          <% end %>
+          <a><%= link_to "Edit Profile", edit_user_path(current_user), class: "btn btn-danger" %></a>
+          <a><%= link_to "Change Email or Password", edit_user_registration_path(current_user), class: "btn btn-danger" %></a>
+          <!-- <a><%# link_to 'Delete Profile', registration_path(current_user), method: :destroy, data: { confirm: 'Are you sure?' }, class: "btn btn-danger mt-3"%></a><br><br> -->
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="card mb-3 border-0 w-50 ml-0 mr-0 mb-0 float-right">
-    <div class="card-body mt-0">
-      <h1><span class= "display-4 text-chicle">User Name:</span> <%= current_user.name %></h1>
-      <h1><span class= "display-4 text-chicle"> Email Address:</span> <%= current_user.email %></h1>
-      <h1 class= " display-4 text-chicle">Locations where you lived</h1>
-        <ul>
-        <% @locations.each do |location| %>
-          <h4><li><%= location.city %>, <%= location.state %> <%= location.country %></li></h4>
-        <% end %>
-        </ul>
-      <h1 class= "display-4 text-chicle">Restaurants You Liked</h1>
-        <ul>
-        <% @places.each do |place| %>
-          <h4><li><%= place.name %></li></h4>
-        <% end %>
-        </ul>
+    <div class="col-sm-6">
+      <div class="card border-0 clearfix m-0">
+        <div class="card-body mt-0">
+          <h1 class= "text-chicle">Locations Where You've lived</h1>
+            <ul class= "list-unstyled">
+            <% @locations.each do |location| %>
+              <h4><li><%= location.city %>, <%= location.state %> <%= location.country %></li></h4>
+            <% end %>
+            </ul>
+          <h1 class= "text-chicle">Restaurants You've Liked</h1>
+            <ul class= "list-unstyled">
+            <% @places.each do |place| %>
+              <h4><li><%= place.name %></li></h4>
+            <% end %>
+            </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
