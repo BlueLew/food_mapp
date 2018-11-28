@@ -101,7 +101,7 @@
     // place's map
     map = new google.maps.Map(document.getElementById('show_map'), {
       center: {lat: place.lat, lng: place.lng},
-      zoom: 16
+      zoom: 15
     });
     var name = <%== {name: @place.name}.to_json %>;
     var content = <%== {name: @place.name}.to_json %>;
@@ -120,7 +120,7 @@
 
     // likes map
     likesMap = new google.maps.Map(document.getElementById('likes_map'), {
-      zoom: 3.5,
+      zoom: 5,
       center: {lat: place.lat, lng: place.lng}
     });
 
