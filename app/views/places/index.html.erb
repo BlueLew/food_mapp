@@ -32,7 +32,7 @@
       center: {lat: 34.8526, lng: -82.3940},
       zoom: 11
     });
-
+    
     places.forEach(function(place) {
       var position = new google.maps.LatLng(place.lat, place.lng);
       var marker = new google.maps.Marker({
@@ -41,7 +41,7 @@
         title: place.name
       });
 
-       var content = place.name + place.likes
+      var content = place.name + place.likes
 
       var infowindow = new google.maps.InfoWindow({
           content: content
