@@ -1,24 +1,17 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Food Mapp
 
-Things you may want to cover:
+Food Mapp is a restaurant review app which correlates the reviewer's "like" for a restaurant with the places they have resided. This app was submitted as my final project to the Carolina Code School's Web Development Immersive course.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Technology stack: 
+  Ruby version 2.5.1
+  Ruby on Rails version 5.2.1
+  JavaScript
+  JSON
+  jQuery
+  PostgreSQL
+  Google Maps API
+  HTML
+  CSS
+  Bootstrap
