@@ -1,6 +1,6 @@
 # Food Mapp
 
-Food Mapp is a restaurant review app which correlates the reviewer's "like" for a restaurant with the places they have resided. This app was submitted as my final project to the Carolina Code School's Web Development Immersive course.
+Food Mapp is a restaurant review app which correlates the reviewer's "like" for a restaurant with the places they have resided.
 
 Technology stack: 
   * Ruby 2.5.1
