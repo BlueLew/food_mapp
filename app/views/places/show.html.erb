@@ -56,39 +56,6 @@
       </div>
     </div>
   </div>
-  <!-- <div class="show_map_container shadow-sm mt-5 ml-10 mr-20 mb-4 float-left">
-    <div id="show_map"></div>
-    <div id="likes_map"></div>
-  </div> -->
-  
-
-
-  <!-- <div id="carouselIndicators" class="carousel slide w-50 float-left" data-ride="carousel">
-    <ol class="carousel-indicators">
-      <li data-target="#carouselIndicators" data-slide-to="0" class="active"></li>
-      <li data-target="#carouselIndicators" data-slide-to="1"></li>
-    </ol>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <div id="show_map" class="d-block w-100"></div>
-      </div>
-      <div class="carousel-item">
-        <div id="likes_map" class="d-block w-100"></div>
-          <div class="carousel-caption d-none d-md-block">
-            <h5 class= "text-chicle text-primary">Users from these locations have liked this restaurant!</h5>
-          </div>
-      </div>
-    </div>
-    <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div> -->
-
 </div>
 <script>
   var place = <%== {lat: @place.latitude, lng: @place.longitude, name: @place.name, likes: @place.likes.count, address: @place.address }.to_json %>;
