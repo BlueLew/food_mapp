@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  
+
   def show
     @user = current_user
     @likes = @user.likes
@@ -29,20 +29,21 @@ class UsersController < ApplicationController
   def delete
     @user = current_user
     @user.destroy
-    flash[:success] = "User deleted"
+    flash[:success] = 'User deleted'
     redirect_to places_path
   end
 
   def destroy
     @user = current_user
     @user.destroy
-    flash[:success] = "User deleted"
+    flash[:success] = 'User deleted'
     redirect_to places_path
   end
 
-private 
+  private
+
   def user_params
     params
-      .require(:user).permit(:name, locations_attributes: [:city, :state, :country])
+      .require(:user).permit(:name, locations_attributes: %i[city state country])
   end
 end

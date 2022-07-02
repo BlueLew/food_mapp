@@ -17,8 +17,9 @@ class LikesController < ApplicationController
     end
     redirect_to place_path(@place)
   end
-  
+
   private
+
   def find_place
     @place = Place.find(params[:place_id])
   end
