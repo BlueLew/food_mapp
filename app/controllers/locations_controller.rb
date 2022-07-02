@@ -4,8 +4,7 @@ class LocationsController < ApplicationController
     @locations = @user.locations
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @location = Location.new
@@ -25,8 +24,8 @@ class LocationsController < ApplicationController
     Location.find_or_create_by(
       city: params[:location][:city],
       state: params[:location][:state],
-      country: params[:location][:country],
-      )
+      country: params[:location][:country]
+    )
     redirect_to locations_path
   end
 end
