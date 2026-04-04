@@ -1,0 +1,11 @@
+<%= turbo_frame_tag dom_id(venue, :like_toggle) do %>
+  <% if current_user %>
+    <% if current_user.likes.exists?(venue: venue) %>
+      <%= button_to "Unlike venue", venue_like_path(venue), method: :delete, class: "button-muted cursor-pointer" %>
+    <% else %>
+      <%= button_to "Like venue", venue_like_path(venue), class: "button-secondary cursor-pointer" %>
+    <% end %>
+  <% else %>
+    <%= link_to "Sign in to like", new_session_path, class: "button-muted" %>
+  <% end %>
+<% end %>

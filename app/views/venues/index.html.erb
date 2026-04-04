@@ -1,0 +1,37 @@
+<section class="space-y-10">
+  <div class="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+    <div class="panel p-8 lg:p-10">
+      <p class="text-sm uppercase tracking-[0.3em] text-amber-700">Venue discovery</p>
+      <h1 class="mt-3 max-w-3xl text-5xl font-semibold leading-tight text-amber-950">Find restaurants and food spots through the lens of where people have lived.</h1>
+      <p class="mt-5 max-w-2xl text-lg leading-8 text-stone-600">Food Mapp connects venue likes with residence history so you can spot patterns in taste across cities, states, and countries.</p>
+
+      <%= form_with url: venues_path, method: :get, class: "mt-8 flex flex-col gap-4 md:flex-row", data: { turbo_frame: "venues_list" } do |form| %>
+        <%= form.text_field :query, value: @query, placeholder: "Search by venue name, category, or address", class: "input mt-0 flex-1" %>
+        <%= form.submit "Search", class: "button-primary cursor-pointer" %>
+      <% end %>
+    </div>
+
+    <aside class="subtle-panel p-8">
+      <p class="text-sm uppercase tracking-[0.3em] text-stone-500">Quick stats</p>
+      <div class="mt-6 grid gap-4">
+        <div>
+          <p class="text-4xl font-semibold text-stone-950"><%= @venues.size %></p>
+          <p class="mt-1 text-sm text-stone-600">venues in the current result set</p>
+        </div>
+        <div>
+          <p class="text-4xl font-semibold text-stone-950"><%= @venues.sum { |venue| venue.likes.size } %></p>
+          <p class="mt-1 text-sm text-stone-600">likes represented across those venues</p>
+        </div>
+      </div>
+
+      <% if admin_user? %>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <%= link_to "Manage venues", admin_venues_path, class: "button-secondary" %>
+          <%= link_to "Manage users", admin_users_path, class: "button-muted" %>
+        </div>
+      <% end %>
+    </aside>
+  </div>
+
+  <%= render "venue_list", venues: @venues %>
+</section>

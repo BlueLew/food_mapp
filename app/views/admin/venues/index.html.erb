@@ -1,0 +1,29 @@
+<section class="space-y-8">
+  <div class="flex flex-wrap items-start justify-between gap-4">
+    <div>
+      <p class="text-sm uppercase tracking-[0.3em] text-amber-700">Admin</p>
+      <h1 class="mt-3 text-4xl font-semibold text-amber-950">Venues</h1>
+    </div>
+    <div class="flex flex-wrap gap-3">
+      <%= form_with url: admin_venues_path, method: :get, class: "w-full max-w-md" do |form| %>
+        <%= form.text_field :query, value: @query, placeholder: "Search venues", class: "input mt-0" %>
+      <% end %>
+      <%= link_to "New venue", new_admin_venue_path, class: "button-primary" %>
+    </div>
+  </div>
+
+  <div class="grid gap-4">
+    <% @venues.each do |venue| %>
+      <div class="panel flex flex-wrap items-center justify-between gap-4 p-5">
+        <div>
+          <p class="text-xl font-semibold text-stone-900"><%= venue.name %></p>
+          <p class="text-sm text-stone-600"><%= venue.category %> · <%= venue.address %></p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <%= link_to "Show", admin_venue_path(venue), class: "button-muted" %>
+          <%= link_to "Edit", edit_admin_venue_path(venue), class: "button-primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

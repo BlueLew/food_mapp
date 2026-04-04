@@ -1,0 +1,66 @@
+version: "8.0"
+
+compose:
+  files:
+    - compose.yaml
+
+interaction:
+  bash:
+    service: web
+    command: bash
+  bundle:
+    service: web
+    command: bundle
+  rails:
+    service: web
+    command: bin/rails
+    subcommands:
+      console:
+        service: web
+        command: bin/rails console
+      dbconsole:
+        service: web
+        command: bin/rails dbconsole
+      server:
+        service: web
+        command: bin/rails server -b 0.0.0.0 -p 3000
+        compose:
+          run_options: [service-ports]
+  rake:
+    service: web
+    command: bundle exec rake
+  start:
+    subcommands:
+      app:
+        service: web
+        command: bin/rails server -b 0.0.0.0 -p 3000
+        compose:
+          run_options: [service-ports]
+      worker:
+        service: worker
+        command: bundle exec rake solid_queue:start
+      db:
+        service: db
+        command: postgres
+  start:app:
+    service: web
+    command: bin/rails server -b 0.0.0.0 -p 3000
+    compose:
+      run_options: [service-ports]
+  start:worker:
+    service: worker
+    command: bundle exec rake solid_queue:start
+  start:db:
+    service: db
+    command: postgres
+  test:
+    service: web
+    command: bin/rails test
+  psql:
+    service: db
+    command: psql -U postgres -d food_mapp_development
+
+provision:
+  - docker compose up -d db
+  - dip bundle install
+  - dip rails db:prepare

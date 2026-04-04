@@ -1,0 +1,3 @@
+<%= turbo_stream.replace dom_id(@venue, :like_toggle) do %>
+  <%= render "venues/like_button", venue: @venue %>
+<% end %>

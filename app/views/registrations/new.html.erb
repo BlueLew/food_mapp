@@ -1,0 +1,54 @@
+<section class="mx-auto grid max-w-5xl gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+  <div class="panel p-8 lg:p-10">
+    <p class="text-sm uppercase tracking-[0.3em] text-amber-700">Create account</p>
+    <h1 class="mt-3 text-4xl font-semibold text-amber-950">Join Food Mapp.</h1>
+    <p class="mt-4 text-stone-600">Build a profile around where you have lived and the venues you keep coming back to.</p>
+
+    <%= form_with model: @user, url: registration_path, class: "mt-8 space-y-6" do |form| %>
+      <% if @user.errors.any? %>
+        <div class="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-900">
+          <p class="font-semibold">Please fix the following:</p>
+          <ul class="mt-2 list-disc pl-5">
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div>
+        <%= form.label :name, class: "text-sm font-semibold text-stone-700" %>
+        <%= form.text_field :name, required: true, class: "input" %>
+      </div>
+
+      <div>
+        <%= form.label :email_address, "Email address", class: "text-sm font-semibold text-stone-700" %>
+        <%= form.email_field :email_address, required: true, autocomplete: "email", class: "input" %>
+      </div>
+
+      <div>
+        <%= form.label :password, class: "text-sm font-semibold text-stone-700" %>
+        <%= form.password_field :password, required: true, autocomplete: "new-password", class: "input" %>
+      </div>
+
+      <div>
+        <%= form.label :password_confirmation, "Confirm password", class: "text-sm font-semibold text-stone-700" %>
+        <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password", class: "input" %>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-4">
+        <%= form.submit "Create account", class: "button-primary cursor-pointer" %>
+        <%= link_to "Already have an account?", new_session_path, class: "text-sm font-medium text-stone-600 underline-offset-4 hover:text-stone-900 hover:underline" %>
+      </div>
+    <% end %>
+  </div>
+
+  <aside class="subtle-panel p-8">
+    <h2 class="text-3xl font-semibold text-stone-900">What you can do</h2>
+    <ul class="mt-6 space-y-4 text-sm leading-6 text-stone-600">
+      <li>Track residences across cities, states, and countries.</li>
+      <li>See which venues connect most strongly with people from the same places.</li>
+      <li>Keep your own curated list of favorite venues.</li>
+    </ul>
+  </aside>
+</section>

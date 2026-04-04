@@ -1,0 +1,14 @@
+<%= turbo_frame_tag "venues_list" do %>
+  <div class="grid gap-6 lg:grid-cols-2">
+    <% if venues.any? %>
+      <% venues.each do |venue| %>
+        <%= render "venue_card", venue: venue %>
+      <% end %>
+    <% else %>
+      <div class="panel col-span-full p-10 text-center">
+        <h3 class="text-2xl font-semibold text-stone-900">No venues matched that search.</h3>
+        <p class="mt-3 text-stone-600">Try another neighborhood, cuisine, or address keyword.</p>
+      </div>
+    <% end %>
+  </div>
+<% end %>

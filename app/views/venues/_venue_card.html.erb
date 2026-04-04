@@ -1,0 +1,37 @@
+<article class="panel flex h-full flex-col gap-5 p-6">
+  <div class="flex items-start justify-between gap-4">
+    <div>
+      <p class="text-sm uppercase tracking-[0.25em] text-amber-700"><%= venue.category %></p>
+      <h3 class="mt-2 text-2xl font-semibold text-stone-950"><%= venue.name %></h3>
+      <p class="mt-2 text-sm leading-6 text-stone-600"><%= venue.address %></p>
+    </div>
+    <div class="rounded-full bg-amber-100 px-4 py-2 text-sm font-semibold text-amber-900">
+      <%= pluralize(venue.likes.size, "like") %>
+    </div>
+  </div>
+
+  <% if venue.photo.attached? %>
+    <%= image_tag venue.photo, class: "h-48 w-full rounded-[1.5rem] object-cover" %>
+  <% else %>
+    <div class="flex h-48 items-end rounded-[1.5rem] bg-[linear-gradient(135deg,_#f59e0b,_#fb7185)] p-5 text-white">
+      <p class="max-w-xs text-sm font-medium">No photo yet. The place is still worth exploring.</p>
+    </div>
+  <% end %>
+
+  <div class="space-y-1 text-sm text-stone-600">
+    <% if venue.phone.present? %>
+      <p><span class="font-semibold text-stone-800">Phone:</span> <%= venue.phone %></p>
+    <% end %>
+    <% if venue.website.present? %>
+      <p>
+        <span class="font-semibold text-stone-800">Website:</span>
+        <%= link_to venue.website, venue.website, target: "_blank", rel: "noreferrer", class: "text-amber-700 underline-offset-4 hover:underline" %>
+      </p>
+    <% end %>
+  </div>
+
+  <div class="mt-auto flex items-center justify-between gap-4">
+    <%= render "like_button", venue: venue %>
+    <%= link_to "View insights", venue_path(venue), class: "text-sm font-semibold text-stone-700 underline-offset-4 hover:text-stone-950 hover:underline" %>
+  </div>
+</article>

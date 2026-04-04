@@ -1,0 +1,31 @@
+<%= form_with model: residence, class: "space-y-6" do |form| %>
+  <% if residence.errors.any? %>
+    <div class="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-900">
+      <ul class="list-disc pl-5">
+        <% residence.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :city, class: "text-sm font-semibold text-stone-700" %>
+    <%= form.text_field :city, class: "input" %>
+  </div>
+
+  <div>
+    <%= form.label :state, class: "text-sm font-semibold text-stone-700" %>
+    <%= form.text_field :state, class: "input" %>
+  </div>
+
+  <div>
+    <%= form.label :country, class: "text-sm font-semibold text-stone-700" %>
+    <%= form.text_field :country, class: "input" %>
+  </div>
+
+  <div class="flex flex-wrap gap-3">
+    <%= form.submit class: "button-primary cursor-pointer" %>
+    <%= link_to "Cancel", residences_path, class: "button-muted" %>
+  </div>
+<% end %>

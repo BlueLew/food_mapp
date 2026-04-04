@@ -1,31 +1,25 @@
 class LikesController < ApplicationController
-  before_action :authenticate_user!, :find_place
-
-  def index
-    @place = Place.find(params[:id])
-    @likes = @place.likes
-    @likes_by_cities = likes_by(:city)
-    @likes_by_states = likes_by(:state)
-    @likes_by_countries = likes_by(:country)
-  end
+  before_action :set_venue
 
   def create
-    if already_liked?
-      flash[:notice] = "You can't like this restaurant more than once"
-    else
-      @place.likes.create(user_id: current_user.id)
-    end
-    redirect_to place_path(@place)
+    current_user.likes.find_or_create_by!(venue: @venue)
+    respond_to_like
+  end
+
+  def destroy
+    current_user.likes.find_by!(venue: @venue).destroy!
+    respond_to_like
   end
 
   private
+    def set_venue
+      @venue = Venue.find(params.expect(:venue_id))
+    end
 
-  def find_place
-    @place = Place.find(params[:place_id])
-  end
-
-  def already_liked?
-    Like.where(user_id: current_user.id, place_id:
-    params[:place_id]).exists?
-  end
+    def respond_to_like
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to venue_path(@venue), notice: "Your preference has been updated." }
+      end
+    end
 end

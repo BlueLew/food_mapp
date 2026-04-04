@@ -1,0 +1,31 @@
+<section class="space-y-8">
+  <div class="flex flex-wrap items-start justify-between gap-4">
+    <div>
+      <p class="text-sm uppercase tracking-[0.3em] text-amber-700">Residence history</p>
+      <h1 class="mt-3 text-4xl font-semibold text-amber-950">Manage where you have lived.</h1>
+      <p class="mt-4 max-w-2xl text-stone-600">These places power the location-based insight panels across every venue.</p>
+    </div>
+    <%= link_to "Add residence", new_residence_path, class: "button-primary" %>
+  </div>
+
+  <div class="grid gap-4">
+    <% if @residences.any? %>
+      <% @residences.each do |residence| %>
+        <div class="panel flex flex-wrap items-center justify-between gap-4 p-5">
+          <div>
+            <p class="text-xl font-semibold text-stone-900"><%= residence.city %><%= ", #{residence.state}" if residence.state.present? %></p>
+            <p class="text-sm text-stone-600"><%= residence.country %></p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <%= link_to "Edit", edit_residence_path(residence), class: "button-muted" %>
+            <%= button_to "Delete", residence_path(residence), method: :delete, class: "button-secondary cursor-pointer", form: { data: { turbo_confirm: "Remove this residence?" } } %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="panel p-10 text-center text-stone-600">
+        No residences yet. Add your first one to start building geographic taste insight.
+      </div>
+    <% end %>
+  </div>
+</section>
