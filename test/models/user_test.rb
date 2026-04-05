@@ -22,4 +22,11 @@ class UserTest < ActiveSupport::TestCase
     assert_not user.valid?
     assert_includes user.errors[:email_address], "has already been taken"
   end
+
+  test "requires a minimum password length" do
+    user = User.new(name: "Short Password", email_address: "short@example.com", password: "short", password_confirmation: "short")
+
+    assert_not user.valid?
+    assert_includes user.errors[:password], "is too short (minimum is 8 characters)"
+  end
 end

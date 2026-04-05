@@ -51,4 +51,20 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_content
     assert_includes @response.body, "Email address has already been taken"
   end
+
+  test "create renders validation errors for a short password" do
+    assert_no_difference("User.count") do
+      post registration_url, params: {
+        user: {
+          name: "New User",
+          email_address: "new@example.com",
+          password: "short",
+          password_confirmation: "short"
+        }
+      }
+    end
+
+    assert_response :unprocessable_content
+    assert_includes @response.body, "Password is too short"
+  end
 end

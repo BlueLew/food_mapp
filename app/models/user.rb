@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  MIN_PASSWORD_LENGTH = 8
+
   has_secure_password
   has_many :sessions, dependent: :destroy
   has_many :residences, dependent: :destroy
@@ -13,6 +15,7 @@ class User < ApplicationRecord
 
   validates :email_address, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true
+  validates :password, length: { minimum: MIN_PASSWORD_LENGTH }, allow_nil: true
 
   def display_name
     name.presence || email_address

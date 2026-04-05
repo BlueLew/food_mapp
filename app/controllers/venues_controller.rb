@@ -6,13 +6,14 @@ class VenuesController < ApplicationController
   def index
     @query = params[:query].to_s.squish
     @venues = Venue.search_for(@query).with_attached_photo.includes(:likes)
+    @liked_venue_ids = current_user ? current_user.likes.pluck(:venue_id) : []
   end
 
   def show
     @city_breakdown = @venue.likes_by(:city)
     @state_breakdown = @venue.likes_by(:state)
     @country_breakdown = @venue.likes_by(:country)
-    @like = current_user&.likes&.find_by(venue: @venue)
+    @liked = current_user&.likes&.exists?(venue: @venue) || false
     @venue_markers = map_markers_for([ @venue ])
     @residence_markers = map_markers_for(@venue.liked_residences)
   end

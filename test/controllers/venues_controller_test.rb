@@ -30,6 +30,16 @@ class VenuesControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, "Unlike venue"
   end
 
+  test "should render index with signed in user like state" do
+    post session_url, params: { email_address: users(:one).email_address, password: "password123" }
+
+    get venues_url
+
+    assert_response :success
+    assert_includes @response.body, "Unlike venue"
+    assert_includes @response.body, "Like venue"
+  end
+
   test "should skip map markers for records without coordinates" do
     venue = Venue.create!(name: "No Coordinates Cafe", address: "123 Missing St, Greenville, SC", category: "Cafe")
 

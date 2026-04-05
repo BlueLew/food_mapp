@@ -6,7 +6,7 @@
       <p class="mt-4 max-w-2xl text-lg leading-8 text-stone-600"><%= @venue.address %></p>
     </div>
     <div class="flex flex-wrap gap-3">
-      <%= render "like_button", venue: @venue %>
+      <%= render "like_button", venue: @venue, liked: @liked %>
       <%= link_to "Back to venues", venues_path, class: "button-muted" %>
     </div>
   </div>

@@ -29,7 +29,7 @@
   </div>
 
   <div class="mt-auto flex items-center justify-between gap-4">
-    <%= render "like_button", venue: venue, query: local_assigns[:query] %>
+    <%= render "like_button", venue: venue, query: local_assigns[:query], liked_venue_ids: local_assigns[:liked_venue_ids], from_list: true %>
     <%= link_to "View insights", venue_path(venue), class: "text-sm font-semibold text-stone-700 underline-offset-4 hover:text-stone-950 hover:underline" %>
   </div>
 </article>

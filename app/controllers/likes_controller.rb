@@ -4,12 +4,14 @@ class LikesController < ApplicationController
   def create
     current_user.likes.find_or_create_by!(venue: @venue)
     @venue.reload
+    @liked = true
     respond_to_like
   end
 
   def destroy
     current_user.likes.find_by!(venue: @venue).destroy!
     @venue.reload
+    @liked = false
     respond_to_like
   end
 
@@ -20,7 +22,8 @@ class LikesController < ApplicationController
 
     def respond_to_like
       @query = params[:query].to_s.squish
-      @venues = Venue.search_for(@query).with_attached_photo.includes(:likes)
+      @from_list = params[:from_list].present?
+      @venues = Venue.search_for(@query).with_attached_photo.includes(:likes) if @from_list
 
       respond_to do |format|
         format.turbo_stream

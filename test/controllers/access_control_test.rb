@@ -11,6 +11,16 @@ class AccessControlTest < ActionDispatch::IntegrationTest
     assert_redirected_to profile_url
   end
 
+  test "non-GET requests do not preserve an invalid return location" do
+    post venue_like_url(venues(:one))
+
+    assert_redirected_to new_session_url
+
+    post session_url, params: { email_address: users(:one).email_address, password: "password123" }
+
+    assert_redirected_to root_url
+  end
+
   test "non-admin users are redirected away from admin pages" do
     sign_in_as users(:one)
 
