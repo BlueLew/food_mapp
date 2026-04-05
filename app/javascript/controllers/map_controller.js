@@ -65,7 +65,7 @@ export default class extends Controller {
 
       if (markerData.info) {
         marker.addListener("click", () => {
-          infoWindow.setContent(`<div style="font-family: IBM Plex Sans, sans-serif; padding: 4px 6px;"><strong>${markerData.title || ""}</strong><br>${markerData.info}</div>`)
+          infoWindow.setContent(this.buildInfoWindowContent(markerData))
           infoWindow.open(this.map, marker)
         })
       }
@@ -79,5 +79,29 @@ export default class extends Controller {
   renderFallback(message) {
     this.element.classList.add("flex", "items-center", "justify-center", "p-6", "text-center", "text-sm", "text-stone-500")
     this.element.textContent = message
+  }
+
+  buildInfoWindowContent(markerData) {
+    const container = document.createElement("div")
+    container.style.fontFamily = "IBM Plex Sans, sans-serif"
+    container.style.padding = "4px 6px"
+
+    if (markerData.title) {
+      const title = document.createElement("strong")
+      title.textContent = markerData.title
+      container.appendChild(title)
+    }
+
+    if (markerData.info) {
+      if (container.childNodes.length > 0) {
+        container.appendChild(document.createElement("br"))
+      }
+
+      const info = document.createElement("span")
+      info.textContent = markerData.info
+      container.appendChild(info)
+    }
+
+    return container
   }
 }

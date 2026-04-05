@@ -42,6 +42,19 @@ class Admin::UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_content
   end
 
+  test "should render edit when email is already taken" do
+    patch admin_user_url(users(:one)), params: {
+      user: {
+        name: "Updated Member",
+        email_address: users(:two).email_address.upcase,
+        role: "member"
+      }
+    }
+
+    assert_response :unprocessable_content
+    assert_includes @response.body, "Email address has already been taken"
+  end
+
   test "should destroy user" do
     assert_difference("User.count", -1) do
       delete admin_user_url(users(:two))

@@ -35,4 +35,20 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_content
   end
+
+  test "create renders validation errors for duplicate email" do
+    assert_no_difference("User.count") do
+      post registration_url, params: {
+        user: {
+          name: "Copy User",
+          email_address: "AMINA@example.com",
+          password: "password123",
+          password_confirmation: "password123"
+        }
+      }
+    end
+
+    assert_response :unprocessable_content
+    assert_includes @response.body, "Email address has already been taken"
+  end
 end

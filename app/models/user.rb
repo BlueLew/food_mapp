@@ -11,7 +11,7 @@ class User < ApplicationRecord
 
   enum :role, { member: 0, admin: 1 }, default: :member
 
-  validates :email_address, presence: true
+  validates :email_address, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true
 
   def display_name

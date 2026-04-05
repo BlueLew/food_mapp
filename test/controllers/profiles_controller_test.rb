@@ -27,4 +27,11 @@ class ProfilesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_content
   end
+
+  test "update renders edit for duplicate email" do
+    patch profile_url, params: { user: { name: "Updated Name", email_address: users(:two).email_address.upcase } }
+
+    assert_response :unprocessable_content
+    assert_includes @response.body, "Email address has already been taken"
+  end
 end
