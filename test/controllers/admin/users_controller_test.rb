@@ -62,4 +62,13 @@ class Admin::UsersControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to admin_users_url
   end
+
+  test "should not destroy the last admin user" do
+    assert_no_difference("User.count") do
+      delete admin_user_url(@admin)
+    end
+
+    assert_redirected_to admin_user_url(@admin)
+    assert_equal "You cannot delete the last admin account.", flash[:alert]
+  end
 end

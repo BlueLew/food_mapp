@@ -24,6 +24,11 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def destroy
+    if @user.admin? && User.admin.count == 1
+      redirect_to admin_user_path(@user), alert: "You cannot delete the last admin account.", status: :see_other
+      return
+    end
+
     @user.destroy!
     redirect_to admin_users_path, notice: "User deleted.", status: :see_other
   end
