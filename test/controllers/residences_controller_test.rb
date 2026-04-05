@@ -25,6 +25,14 @@ class ResidencesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to residences_url
   end
 
+  test "should render new when create is invalid" do
+    assert_no_difference("Residence.count") do
+      post residences_url, params: { residence: { city: "", state: "IL", country: "USA" } }
+    end
+
+    assert_response :unprocessable_content
+  end
+
   test "should get edit" do
     get edit_residence_url(@residence)
     assert_response :success
@@ -35,6 +43,12 @@ class ResidencesControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to residences_url
     assert_equal "Asheville", @residence.reload.city
+  end
+
+  test "should render edit when update is invalid" do
+    patch residence_url(@residence), params: { residence: { city: "", state: "NC", country: "USA" } }
+
+    assert_response :unprocessable_content
   end
 
   test "should destroy residence" do

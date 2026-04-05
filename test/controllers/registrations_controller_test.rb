@@ -20,4 +20,19 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to root_url
   end
+
+  test "create renders new for invalid data" do
+    assert_no_difference("User.count") do
+      post registration_url, params: {
+        user: {
+          name: "",
+          email_address: "broken@example.com",
+          password: "password123",
+          password_confirmation: "mismatch"
+        }
+      }
+    end
+
+    assert_response :unprocessable_content
+  end
 end

@@ -39,7 +39,7 @@
 
           <nav class="flex items-center gap-3 text-sm font-medium">
             <%= link_to "Explore", venues_path, class: "rounded-full px-4 py-2 text-stone-700 transition hover:bg-stone-100" %>
-            <% if current_user %>
+            <% if authenticated? %>
               <%= link_to "Profile", profile_path, class: "rounded-full px-4 py-2 text-stone-700 transition hover:bg-stone-100" %>
               <%= link_to "Residences", residences_path, class: "rounded-full px-4 py-2 text-stone-700 transition hover:bg-stone-100" %>
               <% if admin_user? %>

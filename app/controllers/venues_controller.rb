@@ -1,6 +1,7 @@
 class VenuesController < ApplicationController
   allow_unauthenticated_access only: %i[index show]
   before_action :set_venue, only: :show
+  before_action :resume_session, only: %i[index show]
 
   def index
     @query = params[:query].to_s.squish

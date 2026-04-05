@@ -21,4 +21,10 @@ class ProfilesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to profile_url
     assert_equal "Updated Name", users(:one).reload.name
   end
+
+  test "update renders edit for invalid data" do
+    patch profile_url, params: { user: { name: "", email_address: "updated@example.com" } }
+
+    assert_response :unprocessable_content
+  end
 end
