@@ -27,7 +27,9 @@ services:
       DB_USER: ${DB_USER:-postgres}
       DB_PASSWORD: ${DB_PASSWORD:-postgres}
       DB_NAME: ${DB_NAME:-food_mapp_development}
+      DB_QUEUE_NAME: ${DB_QUEUE_NAME:-food_mapp_development_queue}
       DB_TEST_NAME: ${DB_TEST_NAME:-food_mapp_test}
+      DB_QUEUE_TEST_NAME: ${DB_QUEUE_TEST_NAME:-food_mapp_test_queue}
       GOOGLE_MAPS_API_KEY: ${GOOGLE_MAPS_API_KEY:-}
     ports:
       - "3000:3000"
@@ -51,7 +53,9 @@ services:
       DB_USER: ${DB_USER:-postgres}
       DB_PASSWORD: ${DB_PASSWORD:-postgres}
       DB_NAME: ${DB_NAME:-food_mapp_development}
+      DB_QUEUE_NAME: ${DB_QUEUE_NAME:-food_mapp_development_queue}
       DB_TEST_NAME: ${DB_TEST_NAME:-food_mapp_test}
+      DB_QUEUE_TEST_NAME: ${DB_QUEUE_TEST_NAME:-food_mapp_test_queue}
       GOOGLE_MAPS_API_KEY: ${GOOGLE_MAPS_API_KEY:-}
     volumes:
       - .:/rails

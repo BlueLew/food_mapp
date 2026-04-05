@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount MissionControl::Jobs::Engine, at: "/jobs"
+
   namespace :admin do
     resources :venues
     resources :users, only: %i[index show edit update destroy]

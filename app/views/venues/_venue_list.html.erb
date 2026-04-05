@@ -2,7 +2,7 @@
   <div class="grid gap-6 lg:grid-cols-2">
     <% if venues.any? %>
       <% venues.each do |venue| %>
-        <%= render "venue_card", venue: venue %>
+        <%= render "venue_card", venue: venue, query: local_assigns[:query] %>
       <% end %>
     <% else %>
       <div class="panel col-span-full p-10 text-center">

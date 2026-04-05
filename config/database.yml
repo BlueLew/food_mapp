@@ -10,12 +10,24 @@ default: &default
     statement_timeout: <%= ENV.fetch("DB_STATEMENT_TIMEOUT", 5000) %>
 
 development:
-  <<: *default
-  database: <%= ENV.fetch("DB_NAME", "food_mapp_development") %>
+  primary: &primary_development
+    <<: *default
+    database: <%= ENV.fetch("DB_NAME", "food_mapp_development") %>
+  queue:
+    <<: *primary_development
+    database: <%= ENV.fetch("DB_QUEUE_NAME", "food_mapp_development_queue") %>
+    migrations_paths: db/queue_migrate
+    schema_dump: queue_schema.rb
 
 test:
-  <<: *default
-  database: <%= ENV.fetch("DB_TEST_NAME", "food_mapp_test") %>
+  primary: &primary_test
+    <<: *default
+    database: <%= ENV.fetch("DB_TEST_NAME", "food_mapp_test") %>
+  queue:
+    <<: *primary_test
+    database: <%= ENV.fetch("DB_QUEUE_TEST_NAME", "food_mapp_test_queue") %>
+    migrations_paths: db/queue_migrate
+    schema_dump: queue_schema.rb
 
 production:
   primary: &primary_production

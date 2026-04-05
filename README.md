@@ -37,6 +37,8 @@ For a Homebrew PostgreSQL install, the app defaults to:
 
 If you are using Docker Compose instead, set `DB_USER=postgres`, `DB_PASSWORD=postgres`, and `DB_HOST=db`.
 
+Solid Queue uses a separate queue database in development, test, and production. After changing DB config, run `bin/rails db:prepare` so both the primary and queue databases are created and loaded.
+
 ## Docker Compose
 
 The repo includes a local development stack with:
@@ -77,6 +79,10 @@ dip rails db:seed
 dip test
 dip bash
 ```
+
+## Jobs Dashboard
+
+The app includes Mission Control Jobs for a Rails-native background job dashboard. Admin users can access it at `/jobs`.
 
 ## Useful Commands
 

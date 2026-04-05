@@ -1,0 +1,3 @@
+<div id="<%= dom_id(venue, :like_count) %>" class="rounded-full bg-amber-100 px-4 py-2 text-sm font-semibold text-amber-900">
+  <%= pluralize(venue.likes.size, "like") %>
+</div>

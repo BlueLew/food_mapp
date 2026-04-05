@@ -5,9 +5,7 @@
       <h3 class="mt-2 text-2xl font-semibold text-stone-950"><%= venue.name %></h3>
       <p class="mt-2 text-sm leading-6 text-stone-600"><%= venue.address %></p>
     </div>
-    <div class="rounded-full bg-amber-100 px-4 py-2 text-sm font-semibold text-amber-900">
-      <%= pluralize(venue.likes.size, "like") %>
-    </div>
+    <%= render "like_count_badge", venue: venue %>
   </div>
 
   <% if venue.photo.attached? %>
@@ -31,7 +29,7 @@
   </div>
 
   <div class="mt-auto flex items-center justify-between gap-4">
-    <%= render "like_button", venue: venue %>
+    <%= render "like_button", venue: venue, query: local_assigns[:query] %>
     <%= link_to "View insights", venue_path(venue), class: "text-sm font-semibold text-stone-700 underline-offset-4 hover:text-stone-950 hover:underline" %>
   </div>
 </article>

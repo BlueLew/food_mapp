@@ -33,26 +33,28 @@ interaction:
     subcommands:
       app:
         service: web
-        command: bin/rails server -b 0.0.0.0 -p 3000
         compose:
-          run_options: [service-ports]
+          method: up
       worker:
         service: worker
-        command: bundle exec rake solid_queue:start
+        compose:
+          method: up
       db:
         service: db
-        command: postgres
+        compose:
+          method: up
   start:app:
     service: web
-    command: bin/rails server -b 0.0.0.0 -p 3000
     compose:
-      run_options: [service-ports]
+      method: up
   start:worker:
     service: worker
-    command: bundle exec rake solid_queue:start
+    compose:
+      method: up
   start:db:
     service: db
-    command: postgres
+    compose:
+      method: up
   test:
     service: web
     command: bin/rails test

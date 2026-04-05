@@ -13,35 +13,7 @@
 
   <div class="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
     <div class="space-y-8">
-      <div class="panel p-6">
-        <div class="grid gap-4 sm:grid-cols-3">
-          <div class="subtle-panel p-4">
-            <p class="text-sm uppercase tracking-[0.25em] text-stone-500">Likes</p>
-            <p class="mt-2 text-3xl font-semibold text-stone-950"><%= @venue.likes.count %></p>
-          </div>
-          <div class="subtle-panel p-4">
-            <p class="text-sm uppercase tracking-[0.25em] text-stone-500">Residences</p>
-            <p class="mt-2 text-3xl font-semibold text-stone-950"><%= @venue.liked_residences.count %></p>
-          </div>
-          <div class="subtle-panel p-4">
-            <p class="text-sm uppercase tracking-[0.25em] text-stone-500">Website</p>
-            <% if @venue.website.present? %>
-              <%= link_to "Visit", @venue.website, target: "_blank", rel: "noreferrer", class: "mt-2 inline-block text-lg font-semibold text-amber-700 underline-offset-4 hover:underline" %>
-            <% else %>
-              <p class="mt-2 text-lg font-semibold text-stone-500">N/A</p>
-            <% end %>
-          </div>
-        </div>
-
-        <div class="mt-6 space-y-3 text-sm leading-7 text-stone-600">
-          <% if @venue.phone.present? %>
-            <p><span class="font-semibold text-stone-800">Phone:</span> <%= @venue.phone %></p>
-          <% end %>
-          <% if @venue.photo.attached? %>
-            <%= image_tag @venue.photo, class: "mt-4 h-72 w-full rounded-[1.75rem] object-cover" %>
-          <% end %>
-        </div>
-      </div>
+      <%= render "quick_stats", venue: @venue %>
 
       <div class="panel p-6">
         <h2 class="text-3xl font-semibold text-stone-900">Maps</h2>
@@ -66,27 +38,6 @@
       </div>
     </div>
 
-    <div class="panel p-6">
-      <h2 class="text-3xl font-semibold text-stone-900">Liked most by people from</h2>
-      <div class="mt-6 grid gap-5 md:grid-cols-3">
-        <% { "Cities" => @city_breakdown, "States" => @state_breakdown, "Countries" => @country_breakdown }.each do |label, groups| %>
-          <section class="subtle-panel p-4">
-            <h3 class="text-lg font-semibold text-stone-900"><%= label %></h3>
-            <ul class="mt-4 space-y-3 text-sm text-stone-600">
-              <% if groups.any? %>
-                <% groups.each do |group| %>
-                  <li class="flex items-start justify-between gap-3">
-                    <span><%= group[:name] %></span>
-                    <span class="rounded-full bg-white px-3 py-1 font-semibold text-stone-900"><%= pluralize(group[:likes], "like") %></span>
-                  </li>
-                <% end %>
-              <% else %>
-                <li>No residence data yet.</li>
-              <% end %>
-            </ul>
-          </section>
-        <% end %>
-      </div>
-    </div>
+    <%= render "origin_breakdowns", venue: @venue %>
   </div>
 </section>

@@ -20,4 +20,20 @@ class AccessControlTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_match "You are not authorized to access that page.", @response.body
   end
+
+  test "non-admin users are redirected away from the jobs dashboard" do
+    sign_in_as users(:one)
+
+    get "/jobs"
+
+    assert_redirected_to root_url
+  end
+
+  test "admin users can access the jobs dashboard" do
+    sign_in_as users(:admin)
+
+    get "/jobs"
+
+    assert_response :success
+  end
 end
