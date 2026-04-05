@@ -16,6 +16,17 @@ class VenuesControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, @venue.name
   end
 
+  test "should refresh quick stats for turbo frame searches" do
+    get venues_url, params: { query: "Anchorage" }, headers: { "Turbo-Frame" => "venues_results" }
+
+    assert_response :success
+    assert_includes @response.body, %(id="venues_results")
+    assert_includes @response.body, ">1</p>"
+    assert_includes @response.body, "venues in the current result set"
+    assert_includes @response.body, "likes represented across those venues"
+    assert_not_includes @response.body, ">2</p>"
+  end
+
   test "should show venue" do
     get venue_url(@venue)
     assert_response :success
