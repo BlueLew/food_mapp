@@ -1,5 +1,7 @@
+user_agent = ENV["GEOCODER_USER_AGENT"].to_s.presence
+
 Geocoder.configure(
-  lookup: :google,
-  api_key: ENV["GOOGLE_MAPS_API_KEY"],
-  timeout: 5
+  lookup: :nominatim,
+  timeout: 5,
+  http_headers: user_agent.present? ? { "User-Agent" => user_agent } : {}
 )

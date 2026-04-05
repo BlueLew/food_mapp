@@ -9,12 +9,15 @@ class ResidenceTest < ActiveSupport::TestCase
     residence = Residence.new(user: users(:one), city: "Paris", state: "", country: "France")
 
     with_rails_env("development") do
-      original_api_key = ENV["GOOGLE_MAPS_API_KEY"]
-      ENV["GOOGLE_MAPS_API_KEY"] = "test-key"
+      original_user_agent = ENV["GEOCODER_USER_AGENT"]
       begin
+        ENV["GEOCODER_USER_AGENT"] = nil
+        assert_not residence.send(:should_geocode?)
+
+        ENV["GEOCODER_USER_AGENT"] = "food_mapp/1.0 (test@example.com)"
         assert residence.send(:should_geocode?)
       ensure
-        ENV["GOOGLE_MAPS_API_KEY"] = original_api_key
+        ENV["GEOCODER_USER_AGENT"] = original_user_agent
       end
     end
   end

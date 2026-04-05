@@ -48,6 +48,9 @@ class Venue < ApplicationRecord
 
   private
     def should_geocode?
-      !Rails.env.test? && ENV["GOOGLE_MAPS_API_KEY"].present? && will_save_change_to_address? && address.present?
+      !Rails.env.test? &&
+        ENV["GEOCODER_USER_AGENT"].present? &&
+        will_save_change_to_address? &&
+        address.present?
     end
 end

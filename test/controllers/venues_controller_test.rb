@@ -48,4 +48,21 @@ class VenuesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_includes @response.body, "data-map-markers-value=\"[]\""
   end
+
+  test "should render venue maps without google api attributes" do
+    get venue_url(@venue)
+
+    assert_response :success
+    assert_includes @response.body, "data-map-tile-url-value="
+    assert_includes @response.body, "data-map-attribution-value="
+    assert_not_includes @response.body, "data-map-api-key-value="
+    assert_not_includes @response.body, "maps.googleapis.com"
+  end
+
+  test "venue cards navigate to venue pages outside the list turbo frame" do
+    get venues_url
+
+    assert_response :success
+    assert_includes @response.body, %(data-turbo-frame="_top")
+  end
 end

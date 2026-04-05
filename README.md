@@ -104,10 +104,17 @@ All seeded users use the password `password123`.
 
 ## Maps
 
-Set `GOOGLE_MAPS_API_KEY` to enable:
+Food Mapp now uses Leaflet with OpenStreetMap tiles for map rendering and Nominatim for geocoding.
 
-- venue map rendering
-- residence-origin map rendering
-- automatic geocoding for venues and residences
+Set `GEOCODER_USER_AGENT` to enable automatic geocoding for venues and residences:
 
-If the key is missing, the app still works, but maps and geocoding fall back gracefully.
+- venue map rendering works without an API key
+- residence-origin map rendering works without an API key
+- automatic geocoding runs when `GEOCODER_USER_AGENT` is present
+
+Optional overrides:
+
+- `MAP_TILE_URL` to swap the tile server
+- `MAP_ATTRIBUTION` to customize attribution markup for the chosen tile source
+
+The default OpenStreetMap and Nominatim services are best suited for low-volume use. If geocoding is unavailable or coordinates are missing, the app still falls back gracefully.

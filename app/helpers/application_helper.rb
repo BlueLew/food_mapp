@@ -1,4 +1,12 @@
 module ApplicationHelper
+  def map_tile_url
+    ENV.fetch("MAP_TILE_URL", "https://tile.openstreetmap.org/{z}/{x}/{y}.png")
+  end
+
+  def map_attribution
+    ENV.fetch("MAP_ATTRIBUTION", '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors')
+  end
+
   def flash_class(level)
     case level.to_sym
     when :notice

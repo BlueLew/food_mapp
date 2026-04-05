@@ -19,7 +19,7 @@ class Residence < ApplicationRecord
   private
     def should_geocode?
       !Rails.env.test? &&
-        ENV["GOOGLE_MAPS_API_KEY"].present? &&
+        ENV["GEOCODER_USER_AGENT"].present? &&
         full_address.present? &&
         (will_save_change_to_city? || will_save_change_to_state? || will_save_change_to_country?)
     end

@@ -30,7 +30,9 @@ services:
       DB_QUEUE_NAME: ${DB_QUEUE_NAME:-food_mapp_development_queue}
       DB_TEST_NAME: ${DB_TEST_NAME:-food_mapp_test}
       DB_QUEUE_TEST_NAME: ${DB_QUEUE_TEST_NAME:-food_mapp_test_queue}
-      GOOGLE_MAPS_API_KEY: ${GOOGLE_MAPS_API_KEY:-}
+      GEOCODER_USER_AGENT: ${GEOCODER_USER_AGENT:-}
+      MAP_TILE_URL: ${MAP_TILE_URL:-}
+      MAP_ATTRIBUTION: ${MAP_ATTRIBUTION:-}
     ports:
       - "3000:3000"
     volumes:
@@ -56,7 +58,9 @@ services:
       DB_QUEUE_NAME: ${DB_QUEUE_NAME:-food_mapp_development_queue}
       DB_TEST_NAME: ${DB_TEST_NAME:-food_mapp_test}
       DB_QUEUE_TEST_NAME: ${DB_QUEUE_TEST_NAME:-food_mapp_test_queue}
-      GOOGLE_MAPS_API_KEY: ${GOOGLE_MAPS_API_KEY:-}
+      GEOCODER_USER_AGENT: ${GEOCODER_USER_AGENT:-}
+      MAP_TILE_URL: ${MAP_TILE_URL:-}
+      MAP_ATTRIBUTION: ${MAP_ATTRIBUTION:-}
     volumes:
       - .:/rails
       - bundle_cache:/usr/local/bundle

@@ -1,11 +1,15 @@
 import { Controller } from "@hotwired/stimulus"
+import * as L from "leaflet"
 
-let googleMapsPromise
+const DEFAULT_TILE_URL = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+const DEFAULT_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+const FALLBACK_CLASSES = [ "flex", "items-center", "justify-center", "p-6", "text-center", "text-sm", "text-stone-500" ]
 
 export default class extends Controller {
   static values = {
-    apiKey: String,
     markers: Array,
+    tileUrl: String,
+    attribution: String,
     zoom: Number
   }
 
@@ -15,73 +19,68 @@ export default class extends Controller {
       return
     }
 
-    if (!this.apiKeyValue) {
-      this.renderFallback("Set GOOGLE_MAPS_API_KEY to enable maps.")
-      return
+    try {
+      this.renderMap()
+    } catch (error) {
+      console.error("Leaflet map failed to render", error)
+      this.renderFallback("Map unavailable right now.")
     }
-
-    this.loadGoogleMaps().then(() => this.renderMap())
   }
 
-  async loadGoogleMaps() {
-    if (window.google?.maps) return
-    if (!googleMapsPromise) {
-      googleMapsPromise = new Promise((resolve, reject) => {
-        const script = document.createElement("script")
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${this.apiKeyValue}`
-        script.async = true
-        script.defer = true
-        script.onload = resolve
-        script.onerror = reject
-        document.head.appendChild(script)
-      })
-    }
-    await googleMapsPromise
+  disconnect() {
+    this.teardownMap()
   }
 
   renderMap() {
+    this.teardownMap()
+    this.clearFallback()
+    this.element.textContent = ""
+
     const markers = this.markersValue
     const firstMarker = markers[0]
 
-    this.map = new google.maps.Map(this.element, {
-      center: { lat: firstMarker.lat, lng: firstMarker.lng },
-      zoom: this.zoomValue || 5,
-      mapTypeControl: false,
-      streetViewControl: false,
-      fullscreenControl: false
+    this.map = L.map(this.element, {
+      attributionControl: true,
+      zoomControl: true
     })
 
-    const bounds = new google.maps.LatLngBounds()
-    const infoWindow = new google.maps.InfoWindow()
+    L.tileLayer(this.tileUrlValue || DEFAULT_TILE_URL, {
+      attribution: this.attributionValue || DEFAULT_ATTRIBUTION,
+      maxZoom: 19
+    }).addTo(this.map)
+
+    const bounds = L.latLngBounds()
 
     markers.forEach((markerData) => {
-      const marker = new google.maps.Marker({
-        position: { lat: markerData.lat, lng: markerData.lng },
-        map: this.map,
+      const marker = L.marker([ markerData.lat, markerData.lng ], {
         title: markerData.title
-      })
+      }).addTo(this.map)
 
-      bounds.extend(marker.position)
+      bounds.extend(marker.getLatLng())
 
-      if (markerData.info) {
-        marker.addListener("click", () => {
-          infoWindow.setContent(this.buildInfoWindowContent(markerData))
-          infoWindow.open(this.map, marker)
-        })
+      const popupContent = this.buildInfoWindowContent(markerData)
+      if (popupContent) {
+        marker.bindPopup(popupContent)
       }
     })
 
     if (markers.length > 1) {
-      this.map.fitBounds(bounds, 60)
+      this.map.fitBounds(bounds, { padding: [ 60, 60 ] })
+    } else {
+      this.map.setView([ firstMarker.lat, firstMarker.lng ], this.zoomValue || 5)
     }
   }
 
   renderFallback(message) {
-    this.element.classList.add("flex", "items-center", "justify-center", "p-6", "text-center", "text-sm", "text-stone-500")
+    this.teardownMap()
+    this.element.textContent = ""
+    this.element.classList.add(...FALLBACK_CLASSES)
     this.element.textContent = message
   }
 
   buildInfoWindowContent(markerData) {
+    if (!markerData.title && !markerData.info) return null
+
     const container = document.createElement("div")
     container.style.fontFamily = "IBM Plex Sans, sans-serif"
     container.style.padding = "4px 6px"
@@ -103,5 +102,16 @@ export default class extends Controller {
     }
 
     return container
+  }
+
+  clearFallback() {
+    this.element.classList.remove(...FALLBACK_CLASSES)
+  }
+
+  teardownMap() {
+    if (this.map) {
+      this.map.remove()
+      this.map = null
+    }
   }
 }
