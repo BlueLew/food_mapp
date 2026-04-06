@@ -32,6 +32,8 @@
 /public/assets
 /coverage
 /.vscode
+/.playwright
+/.playwright-cli
 
 # Ignore key files for decrypting credentials and more.
 /config/*.key
