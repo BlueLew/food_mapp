@@ -16,7 +16,13 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def update
-    if @user.update(user_params)
+    permitted_params = user_params
+
+    if demoting_last_admin?(permitted_params)
+      @user.assign_attributes(permitted_params.except(:avatar))
+      @user.errors.add(:role, "must leave at least one admin account.")
+      render :edit, status: :unprocessable_content
+    elsif @user.update(permitted_params)
       redirect_to admin_user_path(@user), notice: "User updated.", status: :see_other
     else
       render :edit, status: :unprocessable_content
@@ -40,5 +46,9 @@ class Admin::UsersController < Admin::BaseController
 
     def user_params
       params.expect(user: [ :name, :email_address, :role, :avatar ])
+    end
+
+    def demoting_last_admin?(permitted_params)
+      @user.admin? && permitted_params[:role] == "member" && User.admin.count == 1
     end
 end

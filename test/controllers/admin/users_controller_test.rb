@@ -55,6 +55,21 @@ class Admin::UsersControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, "Email address has already been taken"
   end
 
+  test "should not demote the last admin user" do
+    assert_no_changes -> { @admin.reload.role } do
+      patch admin_user_url(@admin), params: {
+        user: {
+          name: @admin.name,
+          email_address: @admin.email_address,
+          role: "member"
+        }
+      }
+    end
+
+    assert_response :unprocessable_content
+    assert_includes @response.body, "Role must leave at least one admin account."
+  end
+
   test "should destroy user" do
     assert_difference("User.count", -1) do
       delete admin_user_url(users(:two))
