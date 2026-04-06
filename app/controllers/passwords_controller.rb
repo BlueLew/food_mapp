@@ -7,7 +7,7 @@ class PasswordsController < ApplicationController
   end
 
   def create
-    if user = User.find_by(email_address: params[:email_address])
+    if user = User.find_by(email_address: normalized_email_address)
       PasswordsMailer.reset(user).deliver_later
     end
 
@@ -27,6 +27,10 @@ class PasswordsController < ApplicationController
   end
 
   private
+    def normalized_email_address
+      User.normalize_value_for(:email_address, params[:email_address])
+    end
+
     def set_user_by_token
       @user = User.find_by_password_reset_token!(params[:token])
     rescue ActiveSupport::MessageVerifier::InvalidSignature

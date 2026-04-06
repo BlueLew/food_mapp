@@ -15,6 +15,13 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert cookies[:session_id]
   end
 
+  test "create normalizes email address before authentication" do
+    post session_path, params: { email_address: "  #{ @user.email_address.upcase }  ", password: "password123" }
+
+    assert_redirected_to root_path
+    assert cookies[:session_id]
+  end
+
   test "create with invalid credentials" do
     post session_path, params: { email_address: @user.email_address, password: "wrong" }
 
