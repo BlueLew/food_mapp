@@ -1,0 +1,62 @@
+<section class="space-y-8">
+  <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+    <div class="panel p-8">
+      <p class="text-sm uppercase tracking-[0.3em] text-amber-700">Profile</p>
+      <h1 class="mt-3 text-4xl font-semibold text-amber-950"><%= @user.display_name %></h1>
+      <p class="mt-2 text-stone-600"><%= @user.email_address %></p>
+
+      <div class="mt-6">
+        <% if @user.avatar.attached? %>
+          <%= image_tag @user.avatar, class: "h-48 w-48 rounded-[2rem] object-cover" %>
+        <% else %>
+          <div class="flex h-48 w-48 items-center justify-center rounded-[2rem] bg-stone-100 text-4xl font-semibold text-stone-400">
+            <%= @user.display_name.first.upcase %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <%= link_to "Edit profile", edit_profile_path, class: "button-primary" %>
+        <%= link_to "Manage residences", residences_path, class: "button-muted" %>
+      </div>
+    </div>
+
+    <div class="space-y-8">
+      <div class="panel p-6">
+        <h2 class="text-3xl font-semibold text-stone-900">Residence history</h2>
+        <div class="mt-5 space-y-3">
+          <% if @residences.any? %>
+            <% @residences.each do |residence| %>
+              <div class="subtle-panel flex items-center justify-between gap-4 p-4">
+                <div>
+                  <p class="font-semibold text-stone-900"><%= residence.city %><%= ", #{residence.state}" if residence.state.present? %></p>
+                  <p class="text-sm text-stone-600"><%= residence.country %></p>
+                </div>
+                <%= link_to "Edit", edit_residence_path(residence), class: "text-sm font-semibold text-amber-700 underline-offset-4 hover:underline" %>
+              </div>
+            <% end %>
+          <% else %>
+            <p class="text-stone-600">Add a residence so Food Mapp can start connecting geography to taste.</p>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="panel p-6">
+        <h2 class="text-3xl font-semibold text-stone-900">Liked venues</h2>
+        <div class="mt-5 grid gap-4 sm:grid-cols-2">
+          <% if @liked_venues.any? %>
+            <% @liked_venues.each do |venue| %>
+              <%= link_to venue_path(venue), class: "subtle-panel block p-4 transition hover:-translate-y-0.5 hover:border-amber-300" do %>
+                <p class="text-xs uppercase tracking-[0.25em] text-amber-700"><%= venue.category %></p>
+                <p class="mt-2 text-lg font-semibold text-stone-900"><%= venue.name %></p>
+                <p class="mt-2 text-sm text-stone-600"><%= venue.address %></p>
+              <% end %>
+            <% end %>
+          <% else %>
+            <p class="text-stone-600">You have not liked any venues yet.</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

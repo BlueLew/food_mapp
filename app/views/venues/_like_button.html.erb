@@ -1,0 +1,14 @@
+<%= turbo_frame_tag dom_id(venue, :like_toggle) do %>
+  <% liked = local_assigns.fetch(:liked) { Array(local_assigns.fetch(:liked_venue_ids, [])).include?(venue.id) } %>
+  <% button_params = local_assigns[:from_list] ? { query: local_assigns[:query], from_list: true } : {} %>
+
+  <% if current_user %>
+    <% if liked %>
+      <%= button_to "Unlike venue", venue_like_path(venue), method: :delete, params: button_params, class: "button-muted cursor-pointer" %>
+    <% else %>
+      <%= button_to "Like venue", venue_like_path(venue), params: button_params, class: "button-secondary cursor-pointer" %>
+    <% end %>
+  <% else %>
+    <%= link_to "Sign in to like", new_session_path, class: "button-muted" %>
+  <% end %>
+<% end %>

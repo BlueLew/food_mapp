@@ -1,0 +1,20 @@
+<aside id="venues_quick_stats" class="subtle-panel p-8">
+  <p class="text-sm uppercase tracking-[0.3em] text-stone-500">Quick stats</p>
+  <div class="mt-6 grid gap-4">
+    <div>
+      <p class="text-4xl font-semibold text-stone-950"><%= venues.size %></p>
+      <p class="mt-1 text-sm text-stone-600">venues in the current result set</p>
+    </div>
+    <div>
+      <p class="text-4xl font-semibold text-stone-950"><%= venues.sum { |venue| venue.likes.size } %></p>
+      <p class="mt-1 text-sm text-stone-600">likes represented across those venues</p>
+    </div>
+  </div>
+
+  <% if admin_user? %>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <%= link_to "Manage venues", admin_venues_path, class: "button-secondary" %>
+      <%= link_to "Manage users", admin_users_path, class: "button-muted" %>
+    </div>
+  <% end %>
+</aside>
