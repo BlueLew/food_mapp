@@ -1,4 +1,6 @@
 class Like < ApplicationRecord
   belongs_to :user
-  belongs_to :place
+  belongs_to :venue
+
+  validates :user_id, uniqueness: { scope: :venue_id }
 end

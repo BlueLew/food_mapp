@@ -1,0 +1,15 @@
+one:
+  user: one
+  city: Greenville
+  state: SC
+  country: USA
+  latitude: 34.8526
+  longitude: -82.3940
+
+two:
+  user: two
+  city: Austin
+  state: TX
+  country: USA
+  latitude: 30.2672
+  longitude: -97.7431

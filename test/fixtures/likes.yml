@@ -1,9 +1,7 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  user_id: 
-  place_id: 1
+  user: one
+  venue: one
 
 two:
-  user_id: 
-  place_id: 1
+  user: two
+  venue: two

@@ -1,14 +1,23 @@
 class User < ApplicationRecord
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  MIN_PASSWORD_LENGTH = 8
 
-  has_many :likes
-  has_many :places, through: :likes
-
-  has_many :user_locations
-  has_many :locations, through: :user_locations
-
+  has_secure_password
+  has_many :sessions, dependent: :destroy
+  has_many :residences, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :liked_venues, through: :likes, source: :venue
   has_one_attached :avatar
 
-  accepts_nested_attributes_for :locations
+  normalizes :email_address, with: ->(e) { e.strip.downcase }
+  normalizes :name, with: ->(name) { name.to_s.squish }
+
+  enum :role, { member: 0, admin: 1 }, default: :member
+
+  validates :email_address, presence: true, uniqueness: { case_sensitive: false }
+  validates :name, presence: true
+  validates :password, length: { minimum: MIN_PASSWORD_LENGTH }, allow_nil: true
+
+  def display_name
+    name.presence || email_address
+  end
 end

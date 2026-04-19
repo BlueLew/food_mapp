@@ -1,0 +1,58 @@
+<%= form_with model: [ :admin, venue ], class: "space-y-6" do |form| %>
+  <% if venue.errors.any? %>
+    <div class="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-900">
+      <ul class="list-disc pl-5">
+        <% venue.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, class: "text-sm font-semibold text-stone-700" %>
+    <%= form.text_field :name, class: "input" %>
+  </div>
+
+  <div>
+    <%= form.label :category, class: "text-sm font-semibold text-stone-700" %>
+    <%= form.text_field :category, class: "input" %>
+  </div>
+
+  <div>
+    <%= form.label :address, class: "text-sm font-semibold text-stone-700" %>
+    <%= form.text_field :address, class: "input" %>
+  </div>
+
+  <div class="grid gap-6 md:grid-cols-2">
+    <div>
+      <%= form.label :phone, class: "text-sm font-semibold text-stone-700" %>
+      <%= form.telephone_field :phone, class: "input" %>
+    </div>
+    <div>
+      <%= form.label :website, class: "text-sm font-semibold text-stone-700" %>
+      <%= form.url_field :website, class: "input" %>
+    </div>
+  </div>
+
+  <div class="grid gap-6 md:grid-cols-2">
+    <div>
+      <%= form.label :latitude, class: "text-sm font-semibold text-stone-700" %>
+      <%= form.number_field :latitude, step: :any, class: "input" %>
+    </div>
+    <div>
+      <%= form.label :longitude, class: "text-sm font-semibold text-stone-700" %>
+      <%= form.number_field :longitude, step: :any, class: "input" %>
+    </div>
+  </div>
+
+  <div>
+    <%= form.label :photo, class: "text-sm font-semibold text-stone-700" %>
+    <%= form.file_field :photo, class: "input file:mr-4 file:rounded-full file:border-0 file:bg-stone-900 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white" %>
+  </div>
+
+  <div class="flex gap-3">
+    <%= form.submit class: "button-primary cursor-pointer" %>
+    <%= link_to "Cancel", admin_venues_path, class: "button-muted" %>
+  </div>
+<% end %>

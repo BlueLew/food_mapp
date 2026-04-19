@@ -1,9 +1,0 @@
-<div>
-  <h2><%= current_user.name %>'s Locations: </h2>
-  <ul>
-    <% @locations.each do |location| %>
-    <li><%= location.city %>, <%= location.state %> <%location.country %></li>
-    <% end %>
-  </ul>
-  <button><%= link_to "Enter locations which you lived at or visited!", new_location_path, class: "c-button c-button--small c-button--focal"%></button>
-</div>

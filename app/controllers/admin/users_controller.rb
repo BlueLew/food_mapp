@@ -1,45 +1,54 @@
-class Admin::UsersController < ApplicationController
-  before_action :authenticate_admin!
+class Admin::UsersController < Admin::BaseController
+  before_action :set_user, only: %i[show edit update destroy]
 
   def index
-    @users = User.all
+    @query = params[:query].to_s.squish
+    @users = User.includes(:residences, :likes).order(:name, :email_address)
+    @users = @users.where("name ILIKE :query OR email_address ILIKE :query", query: "%#{@query}%") if @query.present?
   end
 
   def show
-    @user = User.find(params[:id])
-    @likes = @user.likes
-    @places = @user.places
-    @locations = @user.locations
+    @residences = @user.residences.ordered
+    @liked_venues = @user.liked_venues.order(:name)
+  end
+
+  def edit
   end
 
   def update
-    @post = Place.find(params[:id])
-    @place.update(place_params)
-    if @place.save
-      redirect_to admin_places_path
+    permitted_params = user_params
+
+    if demoting_last_admin?(permitted_params)
+      @user.assign_attributes(permitted_params.except(:avatar))
+      @user.errors.add(:role, "must leave at least one admin account.")
+      render :edit, status: :unprocessable_content
+    elsif @user.update(permitted_params)
+      redirect_to admin_user_path(@user), notice: "User updated.", status: :see_other
     else
-      render :edit
+      render :edit, status: :unprocessable_content
     end
   end
 
-  def delete
-    @user = User.find(params[:id])
-    @user.destroy
-    flash[:success] = 'User deleted'
-    redirect_to admin_users_path
-  end
-
   def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-    flash[:success] = 'User deleted'
-    redirect_to admin_users_path
+    if @user.admin? && User.admin.count == 1
+      redirect_to admin_user_path(@user), alert: "You cannot delete the last admin account.", status: :see_other
+      return
+    end
+
+    @user.destroy!
+    redirect_to admin_users_path, notice: "User deleted.", status: :see_other
   end
 
   private
+    def set_user
+      @user = User.find(params.expect(:id))
+    end
 
-  def authenticate_admin!
-    authenticate_user!
-    redirect_to root_path, status: :forbidden unless current_user.admin?
-  end
+    def user_params
+      params.expect(user: [ :name, :email_address, :role, :avatar ])
+    end
+
+    def demoting_last_admin?(permitted_params)
+      @user.admin? && permitted_params[:role] == "member" && User.admin.count == 1
+    end
 end

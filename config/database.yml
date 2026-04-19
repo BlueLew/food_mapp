@@ -1,29 +1,47 @@
-# SQLite version 3.x
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
-#
 default: &default
   adapter: postgresql
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
+  encoding: unicode
+  host: <%= ENV.fetch("DB_HOST", "127.0.0.1") %>
+  port: <%= ENV.fetch("DB_PORT", 5432) %>
+  username: <%= ENV["DB_USER"].presence || ENV.fetch("USER", "postgres") %>
+  password: <%= ENV["DB_PASSWORD"] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
+  variables:
+    statement_timeout: <%= ENV.fetch("DB_STATEMENT_TIMEOUT", 5000) %>
 
 development:
-  <<: *default
-  database: food_mapp_development
+  primary: &primary_development
+    <<: *default
+    database: <%= ENV.fetch("DB_NAME", "food_mapp_development") %>
+  queue:
+    <<: *primary_development
+    database: <%= ENV.fetch("DB_QUEUE_NAME", "food_mapp_development_queue") %>
+    migrations_paths: db/queue_migrate
+    schema_dump: queue_schema.rb
 
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
 test:
-  <<: *default
-  database: food_mapp_development
+  primary: &primary_test
+    <<: *default
+    database: <%= ENV.fetch("DB_TEST_NAME", "food_mapp_test") %>
+  queue:
+    <<: *primary_test
+    database: <%= ENV.fetch("DB_QUEUE_TEST_NAME", "food_mapp_test_queue") %>
+    migrations_paths: db/queue_migrate
+    schema_dump: queue_schema.rb
 
 production:
-  adapter: postgresql
-  encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
-  prepared_statements: false
-  database: food_mapp_production
+  primary: &primary_production
+    <<: *default
+    database: <%= ENV.fetch("DB_NAME", "food_mapp_production") %>
+  cache:
+    <<: *primary_production
+    database: <%= ENV.fetch("DB_CACHE_NAME", "food_mapp_production_cache") %>
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    database: <%= ENV.fetch("DB_QUEUE_NAME", "food_mapp_production_queue") %>
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    database: <%= ENV.fetch("DB_CABLE_NAME", "food_mapp_production_cable") %>
+    migrations_paths: db/cable_migrate

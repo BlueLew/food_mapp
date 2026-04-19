@@ -1,0 +1,17 @@
+one:
+  name: The Anchorage
+  address: 586 Perry Ave, Greenville, SC 29611
+  category: Seafood
+  phone: "(864) 412-0311"
+  website: https://theanchoragerestaurant.com
+  latitude: 34.8415
+  longitude: -82.4300
+
+two:
+  name: Kemuri Tatsu-Ya
+  address: 2713 E 2nd St, Austin, TX 78702
+  category: Japanese Smokehouse
+  phone: "(512) 803-2224"
+  website: https://kemuri-tatsuya.com
+  latitude: 30.2605
+  longitude: -97.7145

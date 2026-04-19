@@ -1,0 +1,21 @@
+<%= turbo_stream.replace dom_id(@venue, :like_toggle) do %>
+  <%= render "venues/like_button", venue: @venue, query: @query, liked: @liked, from_list: @from_list %>
+<% end %>
+
+<%= turbo_stream.replace dom_id(@venue, :like_count) do %>
+  <%= render "venues/like_count_badge", venue: @venue %>
+<% end %>
+
+<%= turbo_stream.replace dom_id(@venue, :quick_stats) do %>
+  <%= render "venues/quick_stats", venue: @venue %>
+<% end %>
+
+<%= turbo_stream.replace dom_id(@venue, :origin_breakdowns) do %>
+  <%= render "venues/origin_breakdowns", venue: @venue %>
+<% end %>
+
+<% if @from_list %>
+  <%= turbo_stream.replace "venues_quick_stats" do %>
+    <%= render "venues/index_quick_stats", venues: @venues %>
+  <% end %>
+<% end %>
