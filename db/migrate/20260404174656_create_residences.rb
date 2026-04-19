@@ -32,6 +32,7 @@ class CreateResidences < ActiveRecord::Migration[8.1]
           COALESCE(user_locations.created_at, locations.created_at, CURRENT_TIMESTAMP),
           COALESCE(user_locations.updated_at, locations.updated_at, CURRENT_TIMESTAMP)
         FROM user_locations
+        INNER JOIN users ON users.id = user_locations.user_id
         INNER JOIN locations ON locations.id = user_locations.location_id
         LEFT JOIN residences
           ON residences.user_id = user_locations.user_id

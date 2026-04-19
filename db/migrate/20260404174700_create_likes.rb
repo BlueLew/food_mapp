@@ -11,6 +11,7 @@ class CreateLikes < ActiveRecord::Migration[8.1]
       end
     end
 
+    remove_orphaned_likes!
     deduplicate_likes!
     add_index :likes, [ :user_id, :venue_id ], unique: true unless index_exists?(:likes, [ :user_id, :venue_id ], unique: true)
     add_foreign_key :likes, :users unless foreign_key_exists?(:likes, :users)
@@ -22,6 +23,24 @@ class CreateLikes < ActiveRecord::Migration[8.1]
   end
 
   private
+    def remove_orphaned_likes!
+      return unless column_exists?(:likes, :user_id) && column_exists?(:likes, :venue_id)
+
+      execute <<~SQL.squish
+        DELETE FROM likes
+        WHERE NOT EXISTS (
+          SELECT 1
+          FROM users
+          WHERE users.id = likes.user_id
+        )
+        OR NOT EXISTS (
+          SELECT 1
+          FROM venues
+          WHERE venues.id = likes.venue_id
+        )
+      SQL
+    end
+
     def deduplicate_likes!
       return unless column_exists?(:likes, :venue_id)
 

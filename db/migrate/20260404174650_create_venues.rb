@@ -13,7 +13,10 @@ class CreateVenues < ActiveRecord::Migration[8.1]
     end unless table_exists?(:venues)
 
     add_index :venues, :name unless index_exists?(:venues, :name)
-    backfill_venues_from_places! if table_exists?(:places)
+    if table_exists?(:places)
+      backfill_venues_from_places!
+      reset_primary_key_sequence!(:venues)
+    end
   end
 
   def down
@@ -39,6 +42,12 @@ class CreateVenues < ActiveRecord::Migration[8.1]
         LEFT JOIN venues ON venues.id = places.id
         WHERE venues.id IS NULL
       SQL
+    end
+
+    def reset_primary_key_sequence!(table_name)
+      return unless connection.respond_to?(:reset_pk_sequence!)
+
+      connection.reset_pk_sequence!(table_name)
     end
 
     def generated_primary_key_type
